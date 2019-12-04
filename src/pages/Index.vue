@@ -1,7 +1,10 @@
 <template>
-  <!-- eslint-disable -->
   <q-page class="flex flex-center column">
-    <img class="q-pb-xl" alt="Colony logo" src="~assets/colony-logo-200x200.png" />
+    <img
+      class="q-pb-xl"
+      alt="Colony logo"
+      src="~assets/colony-logo-200x200.png"
+    />
     <q-input v-model="colonyAddress" />
     <q-btn @click="setColony" label="Set Colony" />
     <p v-if="loading">Loading...</p>
@@ -53,17 +56,21 @@ export default {
         "0x2ea0Ba4Aa2bcaDb4371Fcdc99C067a359DFeB870" // Krusty Krab
       );
 
-      this.user.isRoot = (await this.colonyClient.hasColonyRole.call({
-        address: this.user.wallet.address,
-        domainId: 1,
-        role: "ROOT"
-      })).hasRole;
+      this.user.isRoot = (
+        await this.colonyClient.hasColonyRole.call({
+          address: this.user.wallet.address,
+          domainId: 1,
+          role: "ROOT"
+        })
+      ).hasRole;
 
-      this.user.isFunding = (await this.colonyClient.hasColonyRole.call({
-        address: this.user.wallet.address,
-        domainId: 1,
-        role: "FUNDING"
-      })).hasRole;
+      this.user.isFunding = (
+        await this.colonyClient.hasColonyRole.call({
+          address: this.user.wallet.address,
+          domainId: 1,
+          role: "FUNDING"
+        })
+      ).hasRole;
 
       this.loading = false;
     } catch (error) {
