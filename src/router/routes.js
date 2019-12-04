@@ -2,7 +2,10 @@ const routes = [
   {
     path: "/",
     component: () => import("layouts/Layout"),
-    children: [{ path: "", component: () => import("pages/Index") }]
+    children: [
+      { path: "", component: () => import("pages/Login") },
+      { path: "select-colony", component: () => import("pages/SelectColony") }
+    ]
   }
 ];
 
