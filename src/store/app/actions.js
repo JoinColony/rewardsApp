@@ -14,8 +14,6 @@ export async function setNetworkClient(context) {
 
 export async function setColonyClient(context, payload) {
   const networkClient = context.getters["getNetworkClient"];
-  // eslint-disable-next-line
-  console.log(networkClient);
 
   const colonyClient = await networkClient.getColonyClientByAddress(
     payload.address

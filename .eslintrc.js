@@ -24,7 +24,8 @@ module.exports = {
     process: true,
     Capacitor: true,
     chrome: true,
-    module: true
+    module: true,
+    require: true
   },
 
   // add your custom rules here
