@@ -3,7 +3,9 @@
     <q-header elevated>
       <q-toolbar>
         <q-toolbar-title>
-          Rewards Distribution
+          <q-btn to="/select-colony" no-caps flat>
+            Colony Rewards Distribution
+          </q-btn>
         </q-toolbar-title>
         <q-btn
           v-if="$route.path == '/rewards'"
