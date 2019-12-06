@@ -19,6 +19,7 @@
     "start": "quasar serve --history"
   },
   "dependencies": {
+    "@colony/purser-metamask": "^2.4.1",
     "@quasar/extras": "^1.0.0",
     "quasar": "^1.0.0"
   },
