@@ -15,7 +15,10 @@ export default {
   },
   methods: {
     async setColony() {
-      this.$store.dispatch("app/setColonyClient", { address: this.address });
+      await this.$store.dispatch("app/setColonyClient", {
+        address: this.address
+      });
+      this.$router.push("/rewards");
     }
   }
 };
