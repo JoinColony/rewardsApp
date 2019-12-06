@@ -13,10 +13,6 @@ export default {
       address: "0x2ea0Ba4Aa2bcaDb4371Fcdc99C067a359DFeB870" // Krusty Krab
     };
   },
-  async created() {
-    await this.$store.dispatch("app/openWallet");
-    await this.$store.dispatch("app/setNetworkClient");
-  },
   methods: {
     async setColony() {
       this.$store.dispatch("app/setColonyClient", { address: this.address });
