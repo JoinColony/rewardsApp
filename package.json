@@ -19,9 +19,6 @@
     "start": "quasar serve --history"
   },
   "dependencies": {
-    "@colony/colony-cli": "^1.0.0-beta.7",
-    "@colony/colony-js-client": "^1.14.1",
-    "@colony/purser-metamask": "^2.4.1",
     "@quasar/extras": "^1.0.0",
     "quasar": "^1.0.0"
   },
