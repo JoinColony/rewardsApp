@@ -15,10 +15,15 @@ export default {
   },
   methods: {
     async setColony() {
-      await this.$store.dispatch("app/setColonyClient", {
-        address: this.address
-      });
-      this.$router.push("/rewards");
+      try {
+        await this.$store.dispatch("app/setColonyClient", {
+          address: this.address
+        });
+        this.$router.push("/rewards");
+      } catch (error) {
+        const { message } = error;
+        this.$q.notify({ message, color: "negative" });
+      }
     }
   }
 };

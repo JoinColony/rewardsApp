@@ -12,7 +12,8 @@ export default {
       await this.$store.dispatch("app/setNetworkClient");
       this.$router.push("/select-colony");
     } catch (error) {
-      this.$q.notify(error);
+      const { message } = error;
+      this.$q.notify({ message, color: "negative" });
     }
   }
 };
