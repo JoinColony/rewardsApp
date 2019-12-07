@@ -1,5 +1,6 @@
 <template>
-  <q-list>
+  <q-list class="q-pa-md">
+    <h6>Reward Pot Balances</h6>
     <q-item>
       <q-item-section>
         <q-item-label>Single line item</q-item-label>

@@ -1,16 +1,20 @@
 <template>
   <q-page class="flex flex-center column">
-    <h3>Rewards</h3>
-    <PotBalances />
+    <div class="row">
+      <PotBalances class="col-9" />
+      <PotDetails class="col-3" />
+    </div>
   </q-page>
 </template>
 
 <script>
 import PotBalances from "components/PotBalances";
+import PotDetails from "components/PotDetails";
 
 export default {
   components: {
-    PotBalances
+    PotBalances,
+    PotDetails
   }
 };
 </script>
