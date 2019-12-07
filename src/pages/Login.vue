@@ -13,7 +13,10 @@ export default {
       this.$router.push("/select-colony");
     } catch (error) {
       const { message } = error;
-      this.$q.notify({ message, color: "negative" });
+      this.$q.notify({
+        message,
+        color: "negative"
+      });
     }
   }
 };

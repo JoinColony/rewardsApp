@@ -1,8 +1,16 @@
 <template>
   <q-page class="flex flex-center column">
-    <h3>Select a Colony</h3>
-    <q-input v-model="address" />
-    <q-btn @click="setColony" label="Confirm" />
+    <div>
+      <h3>Select a Colony</h3>
+      <q-input v-model="address" @keyup.enter="setColony" />
+      <q-btn
+        @click="setColony"
+        label="Confirm"
+        class="q-mt-md"
+        style="float: right;"
+        :loading="loading"
+      />
+    </div>
   </q-page>
 </template>
 
@@ -10,11 +18,13 @@
 export default {
   data() {
     return {
-      address: "0x2ea0Ba4Aa2bcaDb4371Fcdc99C067a359DFeB870" // Krusty Krab
+      address: "kk.colony.joincolony.test", // Krusty Krab
+      loading: false
     };
   },
   methods: {
     async setColony() {
+      this.loading = true;
       try {
         await this.$store.dispatch("app/setColonyClient", {
           address: this.address
@@ -22,7 +32,12 @@ export default {
         this.$router.push("/rewards");
       } catch (error) {
         const { message } = error;
-        this.$q.notify({ message, color: "negative" });
+        this.$q.notify({
+          message,
+          color: "negative"
+        });
+      } finally {
+        this.loading = false;
       }
     }
   }
