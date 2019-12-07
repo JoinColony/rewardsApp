@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex flex-center column">
     <div>
-      <h3>Select a Colony</h3>
+      <h3 class="q-mt-none">Select a Colony</h3>
       <q-input v-model="address" @keyup.enter="setColony" />
       <q-btn
         @click="setColony"

@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex flex-center column">
-    <h3>Please login with Metamask</h3>
+    <h3 class="q-mt-none">Please login with Metamask</h3>
   </q-page>
 </template>
 
