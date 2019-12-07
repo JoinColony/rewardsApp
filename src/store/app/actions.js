@@ -27,7 +27,7 @@ export async function setUserRoles(context) {
   const colonyClient = context.getters["getColonyClient"];
   const wallet = context.getters["getWallet"];
 
-  const isRoot = (
+  const hasRootRole = (
     await colonyClient.hasColonyRole.call({
       address: wallet.address,
       domainId: 1,
@@ -35,7 +35,7 @@ export async function setUserRoles(context) {
     })
   ).hasRole;
 
-  const isFunding = (
+  const hasFundingRole = (
     await colonyClient.hasColonyRole.call({
       address: wallet.address,
       domainId: 1,
@@ -43,5 +43,5 @@ export async function setUserRoles(context) {
     })
   ).hasRole;
 
-  context.commit("setUserRoles", { isRoot, isFunding });
+  context.commit("setUserRoles", { hasRootRole, hasFundingRole });
 }

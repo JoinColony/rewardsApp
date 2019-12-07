@@ -4,7 +4,7 @@
     <div>5% of all incoming revenue is sent to the rewards pot.</div>
 
     <q-btn
-      v-if="$store.getters['app/getUser'].isFunding"
+      v-if="$store.getters['app/getUser'].hasFundingRole"
       flat
       no-caps
       class="q-my-sm"
@@ -12,7 +12,7 @@
       Move funds
     </q-btn>
     <q-btn
-      v-if="$store.getters['app/getUser'].isRoot"
+      v-if="$store.getters['app/getUser'].hasRootRole"
       flat
       no-caps
       class="q-my-sm"

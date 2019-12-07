@@ -3,7 +3,7 @@ export default {
   colonyClient: null,
   user: {
     wallet: null,
-    isRoot: false,
-    isFunding: false
+    hasRootRole: false,
+    hasFundingRole: false
   }
 };

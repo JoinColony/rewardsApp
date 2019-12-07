@@ -11,6 +11,6 @@ export function setColonyClient(state, payload) {
 }
 
 export function setUserRoles(state, payload) {
-  state.user.isRoot = payload.isRoot;
-  state.user.isFunding = payload.isFunding;
+  state.user.hasRootRole = payload.hasRootRole;
+  state.user.hasFundingRole = payload.hasFundingRole;
 }
