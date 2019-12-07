@@ -1,8 +1,8 @@
 <template>
   <q-page class="flex justify-center">
     <div class="row justify-between">
-      <PotBalances class="q-px-md col-12 col-sm-8" />
-      <PotDetails class="q-px-md col-12 col-sm-3" />
+      <PotBalances class="q-px-md col-12 col-md-8" />
+      <PotDetails class="q-px-md col-12 col-md-3" />
     </div>
   </q-page>
 </template>
