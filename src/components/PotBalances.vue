@@ -1,7 +1,7 @@
 <template>
   <q-list>
     <h6>Reward Pot Balances</h6>
-    <q-item>
+    <q-item class="q-px-none">
       <q-item-section>
         <q-item-label>Single line item</q-item-label>
         <q-item-label caption lines="2">
@@ -16,9 +16,9 @@
       </q-item-section>
     </q-item>
 
-    <q-separator spaced inset />
+    <q-separator spaced />
 
-    <q-item>
+    <q-item class="q-px-none">
       <q-item-section>
         <q-item-label>Single line item</q-item-label>
         <q-item-label caption>
@@ -32,9 +32,9 @@
       </q-item-section>
     </q-item>
 
-    <q-separator spaced inset />
+    <q-separator spaced />
 
-    <q-item>
+    <q-item class="q-px-none">
       <q-item-section>
         <q-item-label>Single line item</q-item-label>
         <q-item-label caption>
@@ -48,9 +48,9 @@
       </q-item-section>
     </q-item>
 
-    <q-separator spaced inset />
+    <q-separator spaced />
 
-    <q-item>
+    <q-item class="q-px-none">
       <q-item-section>
         <q-item-label>Single line item</q-item-label>
         <q-item-label caption>
@@ -69,9 +69,9 @@
       </q-item-section>
     </q-item>
 
-    <q-separator spaced inset />
+    <q-separator spaced />
 
-    <q-item>
+    <q-item class="q-px-none">
       <q-item-section>
         <q-item-label>Single line item</q-item-label>
         <q-item-label caption>
