@@ -11,7 +11,14 @@
     >
       Move funds
     </q-btn>
-    <q-btn flat no-caps class="q-my-sm">Set rewards percentage</q-btn>
+    <q-btn
+      v-if="$store.getters['app/getUser'].isRoot"
+      flat
+      no-caps
+      class="q-my-sm"
+    >
+      Set rewards percentage
+    </q-btn>
   </div>
 </template>
 
