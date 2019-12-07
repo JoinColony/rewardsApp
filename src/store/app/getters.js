@@ -1,3 +1,7 @@
+export function getUser(state) {
+  return state.user;
+}
+
 export function getWallet(state) {
   return state.user.wallet;
 }
