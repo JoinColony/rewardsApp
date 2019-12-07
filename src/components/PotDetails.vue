@@ -1,14 +1,19 @@
 <template>
-  <div class="q-pa-md">
+  <div>
     <h6>Reward Pot Details</h6>
     <div>5% of all incoming revenue is sent to the rewards pot.</div>
-    <ul>
-      <li>Move funds to and from rewards pot</li>
-      <li>Set rewards percentage</li>
-    </ul>
+
+    <q-btn flat no-caps class="q-my-sm">Move funds</q-btn>
+    <q-btn flat no-caps class="q-my-sm">Set rewards percentage</q-btn>
   </div>
 </template>
 
 <script>
 export default {};
 </script>
+
+<style lang="scss">
+button > div {
+  text-align: left !important;
+}
+</style>
