@@ -5,25 +5,36 @@
 
     <q-btn
       v-if="$store.getters['app/getUser'].hasFundingRole"
+      @click="$store.commit('app/toggleMoveFundsDialog')"
       flat
       no-caps
       class="q-my-sm"
-    >
-      Move funds
-    </q-btn>
+      label="Move funds"
+    />
     <q-btn
       v-if="$store.getters['app/getUser'].hasRootRole"
+      @click="$store.commit('app/toggleSetRewardsDialog')"
       flat
       no-caps
       class="q-my-sm"
-    >
-      Set rewards percentage
-    </q-btn>
+      label="Set rewards percentage"
+    />
+
+    <MoveFundsDialog />
+    <SetRewardsDialog />
   </div>
 </template>
 
 <script>
-export default {};
+import MoveFundsDialog from "components/MoveFundsDialog";
+import SetRewardsDialog from "components/SetRewardsDialog";
+
+export default {
+  components: {
+    MoveFundsDialog,
+    SetRewardsDialog
+  }
+};
 </script>
 
 <style lang="scss">

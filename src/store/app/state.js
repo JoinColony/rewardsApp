@@ -5,5 +5,7 @@ export default {
     wallet: null,
     hasRootRole: false,
     hasFundingRole: false
-  }
+  },
+  moveFundsDialog: false,
+  setRewardsDialog: false
 };

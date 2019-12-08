@@ -14,3 +14,19 @@ export function setUserRoles(state, payload) {
   state.user.hasRootRole = payload.hasRootRole;
   state.user.hasFundingRole = payload.hasFundingRole;
 }
+
+export function toggleMoveFundsDialog(state, isOpen) {
+  if (typeof isOpen === "boolean") {
+    state.moveFundsDialog = isOpen;
+  } else {
+    state.moveFundsDialog = !state.moveFundsDialog;
+  }
+}
+
+export function toggleSetRewardsDialog(state, isOpen) {
+  if (typeof isOpen === "boolean") {
+    state.setRewardsDialog = isOpen;
+  } else {
+    state.setRewardsDialog = !state.setRewardsDialog;
+  }
+}
