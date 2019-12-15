@@ -37,3 +37,9 @@ export function addRewardPotToken(state, payload) {
     balance: payload.balance
   });
 }
+
+export function addDomain(state, payload) {
+  state.domains.push({
+    domain: payload.domain
+  });
+}

@@ -22,6 +22,7 @@ export async function setColonyClient(context, payload) {
   context.commit("setColonyClient", { colonyClient });
   context.dispatch("setUserRoles");
   context.dispatch("setRewardsPotTokens");
+  context.dispatch("setDomains");
 }
 
 export async function setUserRoles(context) {
@@ -69,4 +70,17 @@ export async function setRewardsPotTokens(context) {
       context.commit("addRewardPotToken", { token, balance });
     }
   });
+}
+
+export async function setDomains(context) {
+  const colonyClient = context.getters["getColonyClient"];
+
+  const { count } = await colonyClient.getDomainCount.call();
+
+  for (let index = 1; index <= count; index++) {
+    const domain = await colonyClient.getDomain.call({
+      domainId: index
+    });
+    context.commit("addDomain", { domain });
+  }
 }

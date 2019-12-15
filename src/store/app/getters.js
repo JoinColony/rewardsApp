@@ -17,3 +17,7 @@ export function getColonyClient(state) {
 export function getRewardPotTokens(state) {
   return state.rewardPotTokens;
 }
+
+export function getDomains(state) {
+  return state.domains;
+}
