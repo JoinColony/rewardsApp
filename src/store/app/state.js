@@ -10,5 +10,6 @@ export default {
   setRewardsDialog: false,
   rewardPotTokens: [],
   nonRewardPotTokens: [],
-  domains: []
+  domains: [],
+  rewardInverse: 0
 };

@@ -21,9 +21,13 @@ export async function setColonyClient(context, payload) {
   );
 
   context.commit("setColonyClient", { colonyClient });
+  context.commit(
+    "setRewardInverse",
+    await colonyClient.getRewardInverse.call()
+  );
   context.dispatch("setUserRoles");
-  context.dispatch("setRewardsPotTokens");
-  context.dispatch("setNonRewardsPotTokens");
+  context.dispatch("setRewardPotTokens");
+  context.dispatch("setNonRewardPotTokens");
   context.dispatch("setDomains");
 }
 
@@ -50,7 +54,7 @@ export async function setUserRoles(context) {
   context.commit("setUserRoles", { hasRootRole, hasFundingRole });
 }
 
-export async function setRewardsPotTokens(context) {
+export async function setRewardPotTokens(context) {
   const colonyClient = context.getters["getColonyClient"];
 
   const fundsClaimed = await colonyClient.getEvents({
@@ -74,7 +78,7 @@ export async function setRewardsPotTokens(context) {
   });
 }
 
-export async function setNonRewardsPotTokens(context) {
+export async function setNonRewardPotTokens(context) {
   const colonyClient = context.getters["getColonyClient"];
 
   const fundsClaimed = await colonyClient.getEvents({
@@ -119,4 +123,9 @@ export async function moveFunds(context, payload) {
     amount: bigNumber(payload.amount).toWei(),
     token: payload.token
   });
+}
+
+export async function setRewardInverse(context, payload) {
+  // TODO: Actually set reward inverse.
+  context.commit("setRewardInverse", payload);
 }

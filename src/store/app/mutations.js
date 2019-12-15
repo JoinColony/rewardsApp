@@ -48,3 +48,7 @@ export function addNonRewardPotToken(state, payload) {
 export function addDomain(state, payload) {
   state.domains.push(payload.domain);
 }
+
+export function setRewardInverse(state, payload) {
+  state.rewardInverse = payload.rewardInverse.toString();
+}

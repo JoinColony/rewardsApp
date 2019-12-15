@@ -8,7 +8,7 @@
       <q-card-section>
         <q-input
           label="Amount"
-          v-model="amount"
+          v-model="rewardInverse"
           autofocus
           @keyup.enter="$store.commit('app/toggleSetRewardsDialog')"
         />
@@ -20,11 +20,7 @@
           label="Cancel"
           @click="$store.commit('app/toggleSetRewardsDialog')"
         />
-        <q-btn
-          flat
-          label="Confirm"
-          @click="$store.commit('app/toggleSetRewardsDialog')"
-        />
+        <q-btn flat label="Confirm" @click="submit" />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -34,7 +30,7 @@
 export default {
   data() {
     return {
-      amount: 0
+      rewardInverse: 0
     };
   },
   computed: {
@@ -45,6 +41,13 @@ export default {
       set(_isOpen) {
         this.$store.commit("app/toggleSetRewardsDialog", _isOpen);
       }
+    }
+  },
+  methods: {
+    submit() {
+      this.$store.dispatch("app/setRewardInverse", {
+        rewardInverse: this.rewardInverse
+      });
     }
   }
 };
