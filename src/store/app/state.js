@@ -7,5 +7,6 @@ export default {
     hasFundingRole: false
   },
   moveFundsDialog: false,
-  setRewardsDialog: false
+  setRewardsDialog: false,
+  rewardPotTokens: []
 };

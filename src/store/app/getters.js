@@ -13,3 +13,7 @@ export function getNetworkClient(state) {
 export function getColonyClient(state) {
   return state.colonyClient;
 }
+
+export function getRewardPotTokens(state) {
+  return state.rewardPotTokens;
+}

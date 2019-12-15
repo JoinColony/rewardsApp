@@ -30,3 +30,10 @@ export function toggleSetRewardsDialog(state, isOpen) {
     state.setRewardsDialog = !state.setRewardsDialog;
   }
 }
+
+export function addRewardPotToken(state, payload) {
+  state.rewardPotTokens.push({
+    token: payload.token,
+    balance: payload.balance
+  });
+}

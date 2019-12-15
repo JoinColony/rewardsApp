@@ -21,6 +21,7 @@ export async function setColonyClient(context, payload) {
 
   context.commit("setColonyClient", { colonyClient });
   context.dispatch("setUserRoles");
+  context.dispatch("setRewardsPotTokens");
 }
 
 export async function setUserRoles(context) {
@@ -44,4 +45,28 @@ export async function setUserRoles(context) {
   ).hasRole;
 
   context.commit("setUserRoles", { hasRootRole, hasFundingRole });
+}
+
+export async function setRewardsPotTokens(context) {
+  const colonyClient = context.getters["getColonyClient"];
+
+  const fundsClaimed = await colonyClient.getEvents({
+    eventNames: ["ColonyFundsClaimed"],
+    fromBlock: 1
+  });
+
+  const uniqueTokens = [...new Set(fundsClaimed.map(item => item.token))];
+
+  uniqueTokens.forEach(async token => {
+    const balance = (
+      await colonyClient.getFundingPotBalance.call({
+        potId: 0, // Rewards Pot
+        token
+      })
+    ).balance.toString();
+
+    if (balance > 0) {
+      context.commit("addRewardPotToken", { token, balance });
+    }
+  });
 }
