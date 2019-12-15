@@ -6,7 +6,7 @@
       </q-card-section>
 
       <q-card-section>
-        <q-select label="From" v-model="from" :options="fromOptions" />
+        <q-select label="From" v-model="fromPot" :options="fromOptions" />
 
         <div class="text-center full-width">
           <q-btn
@@ -19,7 +19,7 @@
           />
         </div>
 
-        <q-select label="To" v-model="to" :options="toOptions" />
+        <q-select label="To" v-model="toPot" :options="toOptions" />
 
         <q-input
           label="Amount"
@@ -34,12 +34,9 @@
           flat
           label="Cancel"
           @click="$store.commit('app/toggleMoveFundsDialog')"
+          :disabled="loading"
         />
-        <q-btn
-          flat
-          label="Confirm"
-          @click="$store.commit('app/toggleMoveFundsDialog')"
-        />
+        <q-btn flat label="Confirm" @click="submit" :loading="loading" />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -49,13 +46,14 @@
 export default {
   data() {
     return {
-      from: 1,
-      to: 0,
+      fromPot: 1,
+      toPot: 0,
       amount: 0,
       fromOptions: [],
       toOptions: [],
       tokenToggle: false,
-      token: "Choose a Token"
+      token: "Choose a Token",
+      loading: false
     };
   },
   created() {
@@ -91,16 +89,26 @@ export default {
   methods: {
     swap() {
       const holdOptions = this.fromOptions;
-      const holdValue = this.from;
+      const holdValue = this.fromPot;
       this.fromOptions = this.toOptions;
-      this.from = this.to;
+      this.fromPot = this.toPot;
       this.toOptions = holdOptions;
-      this.to = holdValue;
+      this.toPot = holdValue;
       this.amount = 0;
       this.tokenToggle = !this.tokenToggle;
       this.token = this.tokenOptions[0]
         ? this.tokenOptions[0]
         : "No Token Options";
+    },
+    async submit() {
+      this.loading = true;
+      await this.$store.dispatch("app/moveFunds", {
+        fromPot: this.fromPot,
+        toPot: this.toPot,
+        amount: this.amount,
+        token: this.token
+      });
+      this.loading = false;
     }
   }
 };

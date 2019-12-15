@@ -1,4 +1,5 @@
 import { open } from "@colony/purser-metamask";
+import { bigNumber } from "@colony/purser-core/utils";
 import { getNetworkClient } from "@colony/colony-js-client";
 
 export async function openWallet(context) {
@@ -107,4 +108,15 @@ export async function setDomains(context) {
     });
     context.commit("addDomain", { domain });
   }
+}
+
+export async function moveFunds(context, payload) {
+  const colonyClient = context.getters["getColonyClient"];
+
+  await colonyClient.moveFundsBetweenPots.send({
+    fromPot: payload.fromPot,
+    toPot: payload.toPot,
+    amount: bigNumber(payload.amount).toWei(),
+    token: payload.token
+  });
 }
