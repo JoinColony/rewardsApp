@@ -18,6 +18,10 @@ export function getRewardPotTokens(state) {
   return state.rewardPotTokens;
 }
 
+export function getNonRewardPotTokens(state) {
+  return state.nonRewardPotTokens;
+}
+
 export function getDomains(state) {
   return state.domains;
 }

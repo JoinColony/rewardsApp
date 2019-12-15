@@ -38,8 +38,13 @@ export function addRewardPotToken(state, payload) {
   });
 }
 
-export function addDomain(state, payload) {
-  state.domains.push({
-    domain: payload.domain
+export function addNonRewardPotToken(state, payload) {
+  state.nonRewardPotTokens.push({
+    token: payload.token,
+    balance: payload.balance
   });
+}
+
+export function addDomain(state, payload) {
+  state.domains.push(payload.domain);
 }

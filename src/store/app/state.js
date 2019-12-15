@@ -9,5 +9,6 @@ export default {
   moveFundsDialog: false,
   setRewardsDialog: false,
   rewardPotTokens: [],
+  nonRewardPotTokens: [],
   domains: []
 };
