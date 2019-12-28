@@ -1,5 +1,5 @@
 <template>
-  <q-dialog v-model="isOpen">
+  <q-dialog v-model="isOpen" persistent>
     <q-card style="min-width: 350px">
       <q-card-section>
         <div class="text-h6">Set Rewards Percentage</div>
@@ -11,6 +11,7 @@
           v-model="rewardPercentage"
           autofocus
           @keyup.enter="$store.commit('app/toggleSetRewardsDialog')"
+          :disable="loading"
         />
       </q-card-section>
 
@@ -19,8 +20,9 @@
           flat
           label="Cancel"
           @click="$store.commit('app/toggleSetRewardsDialog')"
+          :disable="loading"
         />
-        <q-btn flat label="Confirm" @click="submit" />
+        <q-btn flat label="Confirm" @click="submit" :loading="loading" />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -30,7 +32,8 @@
 export default {
   data() {
     return {
-      rewardPercentage: 0
+      rewardPercentage: 0,
+      loading: false
     };
   },
   computed: {
@@ -44,10 +47,13 @@ export default {
     }
   },
   methods: {
-    submit() {
-      this.$store.dispatch("app/setRewardInverse", {
+    async submit() {
+      this.loading = true;
+      await this.$store.dispatch("app/setRewardInverse", {
         rewardPercentage: this.rewardPercentage
       });
+      this.loading = false;
+      this.$store.commit("app/toggleSetRewardsDialog");
     }
   }
 };

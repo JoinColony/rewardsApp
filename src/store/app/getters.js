@@ -27,5 +27,5 @@ export function getDomains(state) {
 }
 
 export function getRewardPercentage(state) {
-  return state.rewardPercentage;
+  return Math.round(state.rewardPercentage);
 }
