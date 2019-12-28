@@ -1,5 +1,5 @@
 <template>
-  <q-dialog v-model="isOpen">
+  <q-dialog v-model="isOpen" persistent="loading">
     <q-card style="min-width: 350px">
       <q-card-section>
         <div class="text-h6">Move Funds</div>
