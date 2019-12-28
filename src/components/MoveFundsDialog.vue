@@ -6,20 +6,24 @@
       </q-card-section>
 
       <q-card-section>
-        <q-select label="From" v-model="fromPot" :options="fromOptions" />
+        <q-select
+          label="From"
+          v-model="fromPot"
+          :options="fromOptions"
+          map-options
+        />
 
         <div class="text-center full-width">
-          <q-btn
-            @click="swap"
-            flat
+          <q-icon
+            name="swap_vertical_circle"
             size="lg"
-            icon="swap_vertical_circle"
             color="primary"
-            class="q-my-xs"
+            class="q-my-md"
           />
         </div>
 
-        <q-select label="To" v-model="toPot" :options="toOptions" />
+        <q-select label="To" v-model="toPot" :options="toOptions" map-options>
+        </q-select>
 
         <q-input
           label="Amount"
@@ -49,7 +53,7 @@ export default {
       fromPot: 1,
       toPot: 0,
       amount: 0,
-      fromOptions: [],
+      // fromOptions: [],
       toOptions: [],
       tokenToggle: false,
       token: "Choose a Token",
@@ -57,8 +61,8 @@ export default {
     };
   },
   created() {
-    this.fromOptions = this.potIds;
-    this.toOptions = [0];
+    // this.fromOptions = this.potIds;
+    this.toOptions = [{ label: "Reward Pot", value: 0 }];
   },
   computed: {
     isOpen: {
@@ -69,8 +73,11 @@ export default {
         this.$store.commit("app/toggleMoveFundsDialog", _isOpen);
       }
     },
-    potIds() {
-      return this.$store.getters["app/getDomains"].map(domain => domain.potId);
+    fromOptions() {
+      return this.$store.getters["app/getDomains"].map(domain => ({
+        label: "Funding Pot " + domain.potId,
+        value: domain.potId
+      }));
     },
     rewardPotTokens() {
       return this.$store.getters["app/getRewardPotTokens"].map(
@@ -87,19 +94,19 @@ export default {
     }
   },
   methods: {
-    swap() {
-      const holdOptions = this.fromOptions;
-      const holdValue = this.fromPot;
-      this.fromOptions = this.toOptions;
-      this.fromPot = this.toPot;
-      this.toOptions = holdOptions;
-      this.toPot = holdValue;
-      this.amount = 0;
-      this.tokenToggle = !this.tokenToggle;
-      this.token = this.tokenOptions[0]
-        ? this.tokenOptions[0]
-        : "No Token Options";
-    },
+    // swap() {
+    //   const holdOptions = this.fromOptions;
+    //   const holdValue = this.fromPot;
+    //   this.fromOptions = this.toOptions;
+    //   this.fromPot = this.toPot;
+    //   this.toOptions = holdOptions;
+    //   this.toPot = holdValue;
+    //   this.amount = 0;
+    //   this.tokenToggle = !this.tokenToggle;
+    //   this.token = this.tokenOptions[0]
+    //     ? this.tokenOptions[0]
+    //     : "No Token Options";
+    // },
     async submit() {
       this.loading = true;
       await this.$store.dispatch("app/moveFunds", {
