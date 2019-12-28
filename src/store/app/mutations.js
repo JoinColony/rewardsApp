@@ -1,4 +1,4 @@
-export function openWallet(state, payload) {
+export function setWallet(state, payload) {
   state.user.wallet = payload.wallet;
 }
 
@@ -49,6 +49,6 @@ export function addDomain(state, payload) {
   state.domains.push(payload.domain);
 }
 
-export function setRewardInverse(state, payload) {
-  state.rewardInverse = payload.rewardInverse.toString();
+export function setRewardPercentage(state, payload) {
+  state.rewardPercentage = payload.rewardPercentage;
 }

@@ -26,6 +26,6 @@ export function getDomains(state) {
   return state.domains;
 }
 
-export function getRewardInverse(state) {
-  return state.rewardInverse;
+export function getRewardPercentage(state) {
+  return state.rewardPercentage;
 }

@@ -8,7 +8,7 @@
       <q-card-section>
         <q-input
           label="Amount"
-          v-model="rewardInverse"
+          v-model="rewardPercentage"
           autofocus
           @keyup.enter="$store.commit('app/toggleSetRewardsDialog')"
         />
@@ -30,7 +30,7 @@
 export default {
   data() {
     return {
-      rewardInverse: 0
+      rewardPercentage: 0
     };
   },
   computed: {
@@ -46,7 +46,7 @@ export default {
   methods: {
     submit() {
       this.$store.dispatch("app/setRewardInverse", {
-        rewardInverse: this.rewardInverse
+        rewardPercentage: this.rewardPercentage
       });
     }
   }

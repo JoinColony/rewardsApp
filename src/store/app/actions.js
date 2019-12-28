@@ -4,7 +4,7 @@ import { getNetworkClient } from "@colony/colony-js-client";
 
 export async function openWallet(context) {
   const wallet = await open();
-  context.commit("openWallet", { wallet });
+  context.commit("setWallet", { wallet });
 }
 
 export async function setNetworkClient(context) {
@@ -20,11 +20,11 @@ export async function setColonyClient(context, payload) {
     payload.address
   );
 
+  const rewardPercentage =
+    1 / ((await colonyClient.getRewardInverse.call()).rewardInverse / 100);
+
   context.commit("setColonyClient", { colonyClient });
-  context.commit(
-    "setRewardInverse",
-    await colonyClient.getRewardInverse.call()
-  );
+  context.commit("setRewardPercentage", { rewardPercentage });
   context.dispatch("setUserRoles");
   context.dispatch("setRewardPotTokens");
   context.dispatch("setNonRewardPotTokens");
@@ -126,6 +126,11 @@ export async function moveFunds(context, payload) {
 }
 
 export async function setRewardInverse(context, payload) {
-  // TODO: Actually set reward inverse.
-  context.commit("setRewardInverse", payload);
+  const colonyClient = context.getters["getColonyClient"];
+
+  await colonyClient.setRewardInverse.send({
+    rewardInverse: bigNumber(1 / (payload.rewardPercentage / 100))
+  });
+
+  context.commit("setRewardPercentage", payload);
 }
