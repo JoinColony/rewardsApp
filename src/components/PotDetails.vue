@@ -20,25 +20,15 @@
       class="q-my-sm"
       label="Set rewards percentage"
     />
-
-    <MoveFundsDialog />
-    <SetRewardsDialog />
   </div>
 </template>
 
 <script>
-import MoveFundsDialog from "components/MoveFundsDialog";
-import SetRewardsDialog from "components/SetRewardsDialog";
-
 export default {
   computed: {
     rewardPercentage() {
       return this.$store.getters["app/getRewardPercentage"];
     }
-  },
-  components: {
-    MoveFundsDialog,
-    SetRewardsDialog
   }
 };
 </script>
