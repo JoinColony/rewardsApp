@@ -25,12 +25,20 @@
         <q-select label="To" :value="0" :options="toOptions" map-options>
         </q-select>
 
-        <q-input
-          label="Amount"
-          v-model="amount"
-          @keyup.enter="$store.commit('app/toggleMoveFundsDialog')"
-        />
-        <q-select v-model="token" :options="nonRewardPotTokens" label="Token" />
+        <div class="row q-pt-md">
+          <q-input
+            label="Amount"
+            v-model="amount"
+            @keyup.enter="$store.commit('app/toggleMoveFundsDialog')"
+            class="col-10"
+          />
+          <q-select
+            v-model="token"
+            :options="nonRewardPotTokens"
+            label="Token"
+            class="col-2 ellipsis"
+          />
+        </div>
       </q-card-section>
 
       <q-card-actions align="right" class="text-primary">
