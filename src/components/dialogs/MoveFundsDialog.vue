@@ -29,7 +29,7 @@
           <q-input
             label="Amount"
             v-model="amount"
-            @keyup.enter="$store.commit('app/toggleMoveFundsDialog')"
+            @keyup.enter="submit"
             class="col-10"
           />
           <q-select

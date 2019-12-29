@@ -10,7 +10,7 @@
           label="Amount"
           v-model="rewardPercentage"
           autofocus
-          @keyup.enter="$store.commit('app/toggleSetRewardsDialog')"
+          @keyup.enter="submit"
           :disable="loading"
         />
       </q-card-section>
