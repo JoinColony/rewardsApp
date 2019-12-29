@@ -26,8 +26,11 @@ export async function setColonyClient(context, payload) {
   context.commit("setColonyClient", { colonyClient });
   context.commit("setRewardPercentage", { rewardPercentage });
   context.dispatch("setUserRoles");
+  context.commit("clearRewardPotTokens");
   context.dispatch("setRewardPotTokens");
+  context.commit("clearNonRewardPotTokens");
   context.dispatch("setNonRewardPotTokens");
+  context.commit("clearDomains");
   context.dispatch("setDomains");
 }
 

@@ -38,6 +38,10 @@ export function addRewardPotToken(state, payload) {
   });
 }
 
+export function clearRewardPotTokens(state) {
+  state.rewardPotTokens = [];
+}
+
 export function addNonRewardPotToken(state, payload) {
   state.nonRewardPotTokens.push({
     token: payload.token,
@@ -45,8 +49,16 @@ export function addNonRewardPotToken(state, payload) {
   });
 }
 
+export function clearNonRewardPotTokens(state) {
+  state.nonRewardPotTokens = [];
+}
+
 export function addDomain(state, payload) {
   state.domains.push(payload.domain);
+}
+
+export function clearDomains(state) {
+  state.domains = [];
 }
 
 export function setRewardPercentage(state, payload) {
