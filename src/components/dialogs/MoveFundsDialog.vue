@@ -8,21 +8,21 @@
       <q-card-section>
         <q-select
           label="From"
-          v-model="fromPot"
+          v-model="fromPotValue"
           :options="fromOptions"
           map-options
         />
 
         <div class="text-center full-width">
           <q-icon
-            name="swap_vertical_circle"
+            name="arrow_downward"
             size="lg"
             color="primary"
-            class="q-my-md"
+            class="q-mt-md"
           />
         </div>
 
-        <q-select label="To" v-model="toPot" :options="toOptions" map-options>
+        <q-select label="To" :value="0" :options="toOptions" map-options>
         </q-select>
 
         <q-input
@@ -30,7 +30,7 @@
           v-model="amount"
           @keyup.enter="$store.commit('app/toggleMoveFundsDialog')"
         />
-        <q-select v-model="token" :options="tokenOptions" label="Token" />
+        <q-select v-model="token" :options="nonRewardPotTokens" label="Token" />
       </q-card-section>
 
       <q-card-actions align="right" class="text-primary">
@@ -50,19 +50,12 @@
 export default {
   data() {
     return {
-      fromPot: 1,
-      toPot: 0,
+      fromPot: { value: 1 },
+      toOptions: [{ label: "Reward Pot", value: 0 }],
       amount: 0,
-      // fromOptions: [],
-      toOptions: [],
-      tokenToggle: false,
       token: "Choose a Token",
       loading: false
     };
-  },
-  created() {
-    // this.fromOptions = this.potIds;
-    this.toOptions = [{ label: "Reward Pot", value: 0 }];
   },
   computed: {
     isOpen: {
@@ -79,42 +72,44 @@ export default {
         value: domain.potId
       }));
     },
-    rewardPotTokens() {
-      return this.$store.getters["app/getRewardPotTokens"].map(
-        token => token.token
-      );
-    },
     nonRewardPotTokens() {
       return this.$store.getters["app/getNonRewardPotTokens"].map(
         token => token.token
       );
     },
-    tokenOptions() {
-      return this.tokenToggle ? this.rewardPotTokens : this.nonRewardPotTokens;
+    // TODO: Use filter instead of computed prop
+    fromPotValue: {
+      get() {
+        return this.fromPot.value;
+      },
+      set(_fromPot) {
+        this.fromPot = _fromPot;
+      }
     }
   },
   methods: {
-    // swap() {
-    //   const holdOptions = this.fromOptions;
-    //   const holdValue = this.fromPot;
-    //   this.fromOptions = this.toOptions;
-    //   this.fromPot = this.toPot;
-    //   this.toOptions = holdOptions;
-    //   this.toPot = holdValue;
-    //   this.amount = 0;
-    //   this.tokenToggle = !this.tokenToggle;
-    //   this.token = this.tokenOptions[0]
-    //     ? this.tokenOptions[0]
-    //     : "No Token Options";
-    // },
     async submit() {
       this.loading = true;
-      await this.$store.dispatch("app/moveFunds", {
-        fromPot: this.fromPot,
-        toPot: this.toPot,
-        amount: this.amount,
-        token: this.token
-      });
+
+      try {
+        await this.$store.dispatch("app/moveFunds", {
+          fromPot: this.fromPot.value,
+          toPot: 0,
+          amount: this.amount,
+          token: this.token
+        });
+
+        this.$q.notify({
+          color: "positive",
+          message: "Successfully moved funds."
+        });
+
+        this.$store.commit("app/toggleMoveFundsDialog");
+      } catch (error) {
+        const { message } = error;
+        this.$q.notify({ color: "negative", message });
+      }
+
       this.loading = false;
     }
   }

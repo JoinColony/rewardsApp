@@ -49,11 +49,24 @@ export default {
   methods: {
     async submit() {
       this.loading = true;
-      await this.$store.dispatch("app/setRewardInverse", {
-        rewardPercentage: this.rewardPercentage
-      });
+
+      try {
+        await this.$store.dispatch("app/setRewardInverse", {
+          rewardPercentage: this.rewardPercentage
+        });
+
+        this.$q.notify({
+          color: "positive",
+          message: "Successfully updated reward percentage."
+        });
+
+        this.$store.commit("app/toggleSetRewardsDialog");
+      } catch (error) {
+        const { message } = error;
+        this.$q.notify({ color: "negative", message });
+      }
+
       this.loading = false;
-      this.$store.commit("app/toggleSetRewardsDialog");
     }
   }
 };
