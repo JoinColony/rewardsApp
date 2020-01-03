@@ -25,7 +25,8 @@ module.exports = {
     Capacitor: true,
     chrome: true,
     module: true,
-    require: true
+    require: true,
+    ethereum: true
   },
 
   // add your custom rules here
