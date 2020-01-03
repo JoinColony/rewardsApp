@@ -2,7 +2,7 @@
   <q-page class="flex flex-center column">
     <div>
       <h3 class="q-mt-none">Select a Colony</h3>
-      <q-input v-model="address" @keyup.enter="setColony" />
+      <q-input v-model="address" @keyup.enter="setColony" color="secondary" />
       <q-card-actions align="right">
         <q-btn
           @click="setColony"

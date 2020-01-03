@@ -14,6 +14,7 @@
           :disable="loading"
           suffix="%"
           type="number"
+          color="secondary"
         />
       </q-card-section>
 

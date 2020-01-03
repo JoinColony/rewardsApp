@@ -11,18 +11,25 @@
           v-model="fromPotValue"
           :options="fromOptions"
           map-options
+          color="secondary"
         />
 
         <div class="text-center full-width">
           <q-icon
             name="arrow_downward"
             size="lg"
-            color="primary"
+            color="secondary"
             class="q-mt-md"
           />
         </div>
 
-        <q-select label="To" :value="0" :options="toOptions" map-options>
+        <q-select
+          label="To"
+          :value="0"
+          :options="toOptions"
+          map-options
+          color="secondary"
+        >
         </q-select>
 
         <div class="row q-pt-md">
@@ -33,12 +40,14 @@
             class="col-10"
             placeholder="0"
             type="number"
+            color="secondary"
           />
           <q-select
             v-model="token"
             :options="nonRewardPotTokens"
             label="Token"
             class="col-2 ellipsis"
+            color="secondary"
           />
         </div>
       </q-card-section>

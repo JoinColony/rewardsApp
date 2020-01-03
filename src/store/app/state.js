@@ -9,7 +9,6 @@ export default {
   moveFundsDialog: false,
   setRewardsDialog: false,
   rewardDistributionDialog: false,
-  selectedToken: null,
   rewardPotTokens: [],
   nonRewardPotTokens: [],
   domains: [],

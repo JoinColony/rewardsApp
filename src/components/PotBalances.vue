@@ -33,9 +33,12 @@
           </q-item-section>
 
           <q-item-section side center>
-            <q-badge
+            <q-chip
               color="secondary"
               :label="$web3.utils.fromWei(token.balance)"
+              size="md"
+              outline
+              icon-right="fab fa-ethereum"
             />
           </q-item-section>
           <RewardDistributionDialog :token="token" />

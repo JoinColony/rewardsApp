@@ -36,7 +36,6 @@ export function toggleRewardDistributionDialog(state, payload) {
     state.rewardDistributionDialog = payload;
   } else {
     state.rewardDistributionDialog = !state.rewardDistributionDialog;
-    state.selectedToken = payload;
   }
 }
 
