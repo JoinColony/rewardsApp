@@ -31,6 +31,15 @@ export function toggleSetRewardsDialog(state, isOpen) {
   }
 }
 
+export function toggleRewardDistributionDialog(state, payload) {
+  if (typeof payload === "boolean") {
+    state.rewardDistributionDialog = payload;
+  } else {
+    state.rewardDistributionDialog = !state.rewardDistributionDialog;
+    state.selectedToken = payload.token;
+  }
+}
+
 export function addRewardPotToken(state, payload) {
   state.rewardPotTokens.push({
     token: payload.token,
