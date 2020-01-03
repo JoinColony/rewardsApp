@@ -3,13 +3,16 @@
     <div>
       <h3 class="q-mt-none">Select a Colony</h3>
       <q-input v-model="address" @keyup.enter="setColony" />
-      <q-btn
-        @click="setColony"
-        label="Confirm"
-        class="q-mt-md"
-        style="float: right;"
-        :loading="loading"
-      />
+      <q-card-actions align="right">
+        <q-btn
+          @click="setColony"
+          label="Confirm"
+          class="q-mt-md"
+          :loading="loading"
+          color="secondary"
+          no-caps
+        />
+      </q-card-actions>
     </div>
   </q-page>
 </template>

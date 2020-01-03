@@ -1,6 +1,6 @@
 <template>
   <q-dialog v-model="isOpen" :persistent="loading">
-    <q-card style="min-width: 350px">
+    <q-card>
       <q-card-section>
         <div class="text-h6">Move Funds</div>
       </q-card-section>
@@ -31,6 +31,8 @@
             v-model="amount"
             @keyup.enter="submit"
             class="col-10"
+            placeholder="0"
+            type="number"
           />
           <q-select
             v-model="token"
@@ -41,14 +43,14 @@
         </div>
       </q-card-section>
 
-      <q-card-actions align="right" class="text-primary">
+      <q-card-actions align="right">
         <q-btn
-          flat
-          label="Cancel"
-          @click="$store.commit('app/toggleMoveFundsDialog')"
-          :disabled="loading"
+          no-caps
+          color="secondary"
+          label="Confirm"
+          @click="submit"
+          :loading="loading"
         />
-        <q-btn flat label="Confirm" @click="submit" :loading="loading" />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -60,7 +62,7 @@ export default {
     return {
       fromPot: { value: 1 },
       toOptions: [{ label: "Reward Pot", value: 0 }],
-      amount: 0,
+      amount: "",
       token: "Choose a Token",
       loading: false
     };
