@@ -3,55 +3,58 @@ import { bigNumber } from "@colony/purser-core/utils";
 import { getNetworkClient } from "@colony/colony-js-client";
 import axios from "axios";
 
-export async function openWallet(context) {
+export async function openWallet({ commit }) {
   const wallet = await open();
-  context.commit("setWallet", { wallet });
+  commit("setWallet", { wallet });
 }
 
-export async function setNetworkClient(context) {
-  const wallet = context.getters["getWallet"];
+export async function setNetworkClient({ commit, getters }) {
+  const wallet = getters["getWallet"];
   const networkClient = await getNetworkClient("goerli", wallet);
-  context.commit("setNetworkClient", { networkClient });
+  commit("setNetworkClient", { networkClient });
 }
 
-export async function setColonyClient(context, { address }) {
-  const networkClient = context.getters["getNetworkClient"];
+export async function setColonyClient(
+  { commit, dispatch, getters },
+  { address }
+) {
+  const networkClient = getters["getNetworkClient"];
   const colonyClient = await networkClient.getColonyClientByAddress(address);
 
-  resetColony(context);
-  context.commit("setColonyClient", { colonyClient });
-  context.commit("setColonyAddress", { address });
-  initializeColony(context);
+  resetColony(commit);
+  commit("setColonyClient", { colonyClient });
+  commit("setColonyAddress", { address });
+  initializeColony(dispatch);
 }
 
-function resetColony(context) {
-  context.commit("clearRewardPercentage");
-  context.commit("clearUserRoles");
-  context.commit("clearRewardPotTokens");
-  context.commit("clearNonRewardPotTokens");
-  context.commit("clearDomains");
+function resetColony(commit) {
+  commit("clearRewardPercentage");
+  commit("clearUserRoles");
+  commit("clearRewardPotTokens");
+  commit("clearNonRewardPotTokens");
+  commit("clearDomains");
 }
 
-function initializeColony(context) {
-  context.dispatch("setRewardPercentage");
-  context.dispatch("setUserRoles");
-  context.dispatch("setRewardPotTokens");
-  context.dispatch("setNonRewardPotTokens");
-  context.dispatch("setDomains");
+function initializeColony(dispatch) {
+  dispatch("setRewardPercentage");
+  dispatch("setUserRoles");
+  dispatch("setRewardPotTokens");
+  dispatch("setNonRewardPotTokens");
+  dispatch("setDomains");
 }
 
-export async function setRewardPercentage(context) {
-  const colonyClient = context.getters["getColonyClient"];
+export async function setRewardPercentage({ commit, getters }) {
+  const colonyClient = getters["getColonyClient"];
 
   const rewardPercentage =
     1 / ((await colonyClient.getRewardInverse.call()).rewardInverse / 100);
 
-  context.commit("setRewardPercentage", { rewardPercentage });
+  commit("setRewardPercentage", { rewardPercentage });
 }
 
-export async function setUserRoles(context) {
-  const colonyClient = context.getters["getColonyClient"];
-  const wallet = context.getters["getWallet"];
+export async function setUserRoles({ commit, getters }) {
+  const colonyClient = getters["getColonyClient"];
+  const wallet = getters["getWallet"];
 
   const hasRootRole = (
     await colonyClient.hasColonyRole.call({
@@ -69,11 +72,11 @@ export async function setUserRoles(context) {
     })
   ).hasRole;
 
-  context.commit("setUserRoles", { hasRootRole, hasFundingRole });
+  commit("setUserRoles", { hasRootRole, hasFundingRole });
 }
 
-export async function setRewardPotTokens(context) {
-  const colonyClient = context.getters["getColonyClient"];
+export async function setRewardPotTokens({ commit, dispatch, getters }) {
+  const colonyClient = getters["getColonyClient"];
 
   const fundsClaimed = await colonyClient.getEvents({
     eventNames: ["ColonyFundsClaimed"],
@@ -91,15 +94,15 @@ export async function setRewardPotTokens(context) {
     ).balance.toString();
 
     if (balance > 0) {
-      context.commit("addRewardPotToken", { token, balance });
+      commit("addRewardPotToken", { token, balance });
     }
   });
 
-  context.dispatch("updateRewardPayoutInfo");
+  dispatch("updateRewardPayoutInfo");
 }
 
-export async function updateRewardPayoutInfo(context) {
-  const colonyClient = context.getters["getColonyClient"];
+export async function updateRewardPayoutInfo({ commit, getters }) {
+  const colonyClient = getters["getColonyClient"];
 
   const payoutsStarted = await colonyClient.getEvents({
     eventNames: ["RewardPayoutCycleStarted"],
@@ -111,12 +114,12 @@ export async function updateRewardPayoutInfo(context) {
       payoutId
     });
 
-    context.commit("addRewardPayoutInfo", { payoutInfo });
+    commit("addRewardPayoutInfo", { payoutInfo });
   });
 }
 
-export async function setNonRewardPotTokens(context) {
-  const colonyClient = context.getters["getColonyClient"];
+export async function setNonRewardPotTokens({ commit, getters }) {
+  const colonyClient = getters["getColonyClient"];
 
   const fundsClaimed = await colonyClient.getEvents({
     eventNames: ["ColonyFundsClaimed"],
@@ -133,13 +136,13 @@ export async function setNonRewardPotTokens(context) {
     ).total.toString();
 
     if (balance > 0) {
-      context.commit("addNonRewardPotToken", { token, balance });
+      commit("addNonRewardPotToken", { token, balance });
     }
   });
 }
 
-export async function setDomains(context) {
-  const colonyClient = context.getters["getColonyClient"];
+export async function setDomains({ commit, getters }) {
+  const colonyClient = getters["getColonyClient"];
 
   const { count } = await colonyClient.getDomainCount.call();
 
@@ -147,12 +150,15 @@ export async function setDomains(context) {
     const domain = await colonyClient.getDomain.call({
       domainId: index
     });
-    context.commit("addDomain", { domain });
+    commit("addDomain", { domain });
   }
 }
 
-export async function moveFunds(context, { fromPot, toPot, amount, token }) {
-  const colonyClient = context.getters["getColonyClient"];
+export async function moveFunds(
+  { getters },
+  { fromPot, toPot, amount, token }
+) {
+  const colonyClient = getters["getColonyClient"];
 
   await colonyClient.moveFundsBetweenPots.send({
     fromPot,
@@ -162,20 +168,23 @@ export async function moveFunds(context, { fromPot, toPot, amount, token }) {
   });
 }
 
-export async function setRewardInverse(context, { rewardPercentage }) {
-  const colonyClient = context.getters["getColonyClient"];
+export async function setRewardInverse(
+  { commit, getters },
+  { rewardPercentage }
+) {
+  const colonyClient = getters["getColonyClient"];
 
   await colonyClient.setRewardInverse.send({
     rewardInverse: bigNumber(1 / (rewardPercentage / 100))
   });
 
-  context.commit("setRewardPercentage", { rewardPercentage });
+  commit("setRewardPercentage", { rewardPercentage });
 }
 
-export async function startNextRewardPayout(context, { token }) {
-  const networkClient = context.getters["getNetworkClient"];
-  const colonyClient = context.getters["getColonyClient"];
-  const colonyAddress = context.getters["getColonyAddress"];
+export async function startNextRewardPayout({ getters }, { token }) {
+  const networkClient = getters["getNetworkClient"];
+  const colonyClient = getters["getColonyClient"];
+  const colonyAddress = getters["getColonyAddress"];
 
   const { rootHash } = await networkClient.getReputationRootHash.call();
   const { skillId } = await colonyClient.getDomain.call({ domainId: 1 });
