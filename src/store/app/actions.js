@@ -14,25 +14,39 @@ export async function setNetworkClient(context) {
   context.commit("setNetworkClient", { networkClient });
 }
 
-export async function setColonyClient(context, payload) {
+export async function setColonyClient(context, { address }) {
   const networkClient = context.getters["getNetworkClient"];
+  const colonyClient = await networkClient.getColonyClientByAddress(address);
 
-  const colonyClient = await networkClient.getColonyClientByAddress(
-    payload.address
-  );
+  resetColony(context);
+  context.commit("setColonyClient", { colonyClient });
+  context.commit("setColonyAddress", { address });
+  initializeColony(context);
+}
+
+function resetColony(context) {
+  context.commit("clearRewardPercentage");
+  context.commit("clearUserRoles");
+  context.commit("clearRewardPotTokens");
+  context.commit("clearNonRewardPotTokens");
+  context.commit("clearDomains");
+}
+
+function initializeColony(context) {
+  context.dispatch("setRewardPercentage");
+  context.dispatch("setUserRoles");
+  context.dispatch("setRewardPotTokens");
+  context.dispatch("setNonRewardPotTokens");
+  context.dispatch("setDomains");
+}
+
+export async function setRewardPercentage(context) {
+  const colonyClient = context.getters["getColonyClient"];
 
   const rewardPercentage =
     1 / ((await colonyClient.getRewardInverse.call()).rewardInverse / 100);
 
-  context.commit("setColonyClient", { colonyClient });
   context.commit("setRewardPercentage", { rewardPercentage });
-  context.dispatch("setUserRoles");
-  context.commit("clearRewardPotTokens");
-  context.dispatch("setRewardPotTokens");
-  context.commit("clearNonRewardPotTokens");
-  context.dispatch("setNonRewardPotTokens");
-  context.commit("clearDomains");
-  context.dispatch("setDomains");
 }
 
 export async function setUserRoles(context) {
@@ -137,25 +151,25 @@ export async function setDomains(context) {
   }
 }
 
-export async function moveFunds(context, payload) {
+export async function moveFunds(context, { fromPot, toPot, amount, token }) {
   const colonyClient = context.getters["getColonyClient"];
 
   await colonyClient.moveFundsBetweenPots.send({
-    fromPot: payload.fromPot,
-    toPot: payload.toPot,
-    amount: bigNumber(payload.amount).toWei(),
-    token: payload.token
+    fromPot,
+    toPot,
+    amount: bigNumber(amount).toWei(),
+    token
   });
 }
 
-export async function setRewardInverse(context, payload) {
+export async function setRewardInverse(context, { rewardPercentage }) {
   const colonyClient = context.getters["getColonyClient"];
 
   await colonyClient.setRewardInverse.send({
-    rewardInverse: bigNumber(1 / (payload.rewardPercentage / 100))
+    rewardInverse: bigNumber(1 / (rewardPercentage / 100))
   });
 
-  context.commit("setRewardPercentage", payload);
+  context.commit("setRewardPercentage", { rewardPercentage });
 }
 
 export async function startNextRewardPayout(context, { token }) {

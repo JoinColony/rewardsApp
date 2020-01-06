@@ -1,18 +1,27 @@
-export function setWallet(state, payload) {
-  state.user.wallet = payload.wallet;
+export function setWallet(state, { wallet }) {
+  state.user.wallet = wallet;
 }
 
-export function setNetworkClient(state, payload) {
-  state.networkClient = payload.networkClient;
+export function setNetworkClient(state, { networkClient }) {
+  state.networkClient = networkClient;
 }
 
-export function setColonyClient(state, payload) {
-  state.colonyClient = payload.colonyClient;
+export function setColonyClient(state, { colonyClient }) {
+  state.colonyClient = colonyClient;
 }
 
-export function setUserRoles(state, payload) {
-  state.user.hasRootRole = payload.hasRootRole;
-  state.user.hasFundingRole = payload.hasFundingRole;
+export function setUserRoles(state, { hasRootRole, hasFundingRole }) {
+  state.user.hasRootRole = hasRootRole;
+  state.user.hasFundingRole = hasFundingRole;
+}
+
+export function clearUserRoles(state) {
+  state.user.hasRootRole = false;
+  state.user.hasFundingRole = false;
+}
+
+export function clearRewardPercentage(state) {
+  state.rewardPercentage = 0;
 }
 
 export function toggleMoveFundsDialog(state, isOpen) {
@@ -31,18 +40,18 @@ export function toggleSetRewardsDialog(state, isOpen) {
   }
 }
 
-export function toggleRewardDistributionDialog(state, payload) {
-  if (typeof payload === "boolean") {
-    state.rewardDistributionDialog = payload;
+export function toggleRewardDistributionDialog(state, isOpen) {
+  if (typeof isOpen === "boolean") {
+    state.rewardDistributionDialog = isOpen;
   } else {
     state.rewardDistributionDialog = !state.rewardDistributionDialog;
   }
 }
 
-export function addRewardPotToken(state, payload) {
+export function addRewardPotToken(state, { token, balance }) {
   state.rewardPotTokens.push({
-    token: payload.token,
-    balance: payload.balance
+    token,
+    balance
   });
 }
 
@@ -50,10 +59,10 @@ export function clearRewardPotTokens(state) {
   state.rewardPotTokens = [];
 }
 
-export function addNonRewardPotToken(state, payload) {
+export function addNonRewardPotToken(state, { token, balance }) {
   state.nonRewardPotTokens.push({
-    token: payload.token,
-    balance: payload.balance
+    token,
+    balance
   });
 }
 
@@ -61,16 +70,20 @@ export function clearNonRewardPotTokens(state) {
   state.nonRewardPotTokens = [];
 }
 
-export function addDomain(state, payload) {
-  state.domains.push(payload.domain);
+export function addDomain(state, { domain }) {
+  state.domains.push(domain);
 }
 
 export function clearDomains(state) {
   state.domains = [];
 }
 
-export function setRewardPercentage(state, payload) {
-  state.rewardPercentage = payload.rewardPercentage;
+export function setRewardPercentage(state, { rewardPercentage }) {
+  state.rewardPercentage = rewardPercentage;
+}
+
+export function setColonyAddress(state, { address }) {
+  state.colonyAddress = address;
 }
 
 export function addRewardPayoutInfo(state, { payoutInfo }) {
