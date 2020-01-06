@@ -1,6 +1,7 @@
 import { open } from "@colony/purser-metamask";
 import { bigNumber } from "@colony/purser-core/utils";
 import { getNetworkClient } from "@colony/colony-js-client";
+import axios from "axios";
 
 export async function openWallet(context) {
   const wallet = await open();
@@ -79,6 +80,25 @@ export async function setRewardPotTokens(context) {
       context.commit("addRewardPotToken", { token, balance });
     }
   });
+
+  context.dispatch("updateRewardPayoutInfo");
+}
+
+export async function updateRewardPayoutInfo(context) {
+  const colonyClient = context.getters["getColonyClient"];
+
+  const payoutsStarted = await colonyClient.getEvents({
+    eventNames: ["RewardPayoutCycleStarted"],
+    fromBlock: 1
+  });
+
+  payoutsStarted.forEach(async ({ payoutId }) => {
+    const payoutInfo = await colonyClient.getRewardPayoutInfo.call({
+      payoutId
+    });
+
+    context.commit("addRewardPayoutInfo", { payoutInfo });
+  });
 }
 
 export async function setNonRewardPotTokens(context) {
@@ -136,4 +156,28 @@ export async function setRewardInverse(context, payload) {
   });
 
   context.commit("setRewardPercentage", payload);
+}
+
+export async function startNextRewardPayout(context, { token }) {
+  const networkClient = context.getters["getNetworkClient"];
+  const colonyClient = context.getters["getColonyClient"];
+  const colonyAddress = context.getters["getColonyAddress"];
+
+  const { rootHash } = await networkClient.getReputationRootHash.call();
+  const { skillId } = await colonyClient.getDomain.call({ domainId: 1 });
+  const userAddress = "0x0000000000000000000000000000000000000000";
+
+  const { key, value, branchMask, siblings } = (
+    await axios.get(
+      `https://colony.io/reputation/goerli/${rootHash}/${colonyAddress}/${skillId}/${userAddress}`
+    )
+  ).data;
+
+  await colonyClient.startNextRewardPayout.send({
+    token,
+    key,
+    value,
+    branchMask,
+    siblings
+  });
 }

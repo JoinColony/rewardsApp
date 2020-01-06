@@ -24,7 +24,7 @@
           label="New Distribution"
           color="secondary"
           icon="account_balance_wallet"
-          v-close-popup
+          @click="submit"
         />
       </q-card-actions>
     </q-card>
@@ -53,6 +53,25 @@ export default {
       },
       set(_isOpen) {
         this.$store.commit("app/toggleRewardDistributionDialog", _isOpen);
+      }
+    }
+  },
+  methods: {
+    async submit() {
+      try {
+        await this.$store.dispatch("app/startNextRewardPayout", {
+          token: this.$props.token.token
+        });
+
+        this.$q.notify({
+          color: "positive",
+          message: "Successfully started the reward payout."
+        });
+
+        this.$store.commit("app/toggleRewardDistributionDialog");
+      } catch (error) {
+        const { message } = error;
+        this.$q.notify({ color: "negative", message });
       }
     }
   }

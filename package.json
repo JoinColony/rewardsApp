@@ -23,6 +23,7 @@
     "@colony/colony-js-client": "^1.14.1",
     "@colony/purser-metamask": "^2.4.1",
     "@quasar/extras": "^1.0.0",
+    "axios": "^0.19.0",
     "quasar": "^1.0.0"
   },
   "devDependencies": {
@@ -34,7 +35,7 @@
     "eslint-plugin-vue": "^5.0.0"
   },
   "engines": {
-    "node": "10.13.0",
+    "node": "10.x",
     "npm": ">= 5.6.0",
     "yarn": ">= 1.6.0"
   },

@@ -1,6 +1,7 @@
 export default {
   networkClient: null,
   colonyClient: null,
+  colonyAddress: "0x0",
   user: {
     wallet: null,
     hasRootRole: false,
@@ -12,5 +13,6 @@ export default {
   rewardPotTokens: [],
   nonRewardPotTokens: [],
   domains: [],
-  rewardPercentage: 0
+  rewardPercentage: 0,
+  rewardPayoutsInfo: []
 };

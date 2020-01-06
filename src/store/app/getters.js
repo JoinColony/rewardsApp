@@ -29,3 +29,7 @@ export function getDomains(state) {
 export function getRewardPercentage(state) {
   return Math.round(state.rewardPercentage);
 }
+
+export function getColonyAddress(state) {
+  return state.colonyAddress;
+}

@@ -72,3 +72,9 @@ export function clearDomains(state) {
 export function setRewardPercentage(state, payload) {
   state.rewardPercentage = payload.rewardPercentage;
 }
+
+export function addRewardPayoutInfo(state, { payoutInfo }) {
+  state.rewardPayoutsInfo.push({
+    ...payoutInfo
+  });
+}
