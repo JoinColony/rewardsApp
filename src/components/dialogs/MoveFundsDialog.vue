@@ -13,6 +13,7 @@
           map-options
           color="secondary"
         />
+        <!-- <div class="text-caption" align="right">Budget: {{ budget }}</div> -->
 
         <div class="text-center full-width">
           <q-icon
@@ -31,13 +32,14 @@
           color="secondary"
         >
         </q-select>
+        <!-- <div class="text-caption" align="right">Budget: {{ budget }}</div> -->
 
         <div class="row q-pt-md">
           <q-input
             label="Amount"
             v-model="amount"
             @keyup.enter="submit"
-            class="col-10"
+            class="col-8"
             placeholder="0"
             type="number"
             color="secondary"
@@ -46,7 +48,7 @@
             v-model="token"
             :options="nonRewardPotTokens"
             label="Token"
-            class="col-2 ellipsis"
+            class="col-4 ellipsis text-caption"
             color="secondary"
           />
         </div>
