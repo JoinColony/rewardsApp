@@ -21,7 +21,8 @@
 export default {
   data() {
     return {
-      address: "kk.colony.joincolony.test", // Krusty Krab
+      // address: "kk.colony.joincolony.test", // Krusty Krab
+      address: "0x2ea0Ba4Aa2bcaDb4371Fcdc99C067a359DFeB870",
       loading: false
     };
   },
