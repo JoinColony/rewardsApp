@@ -25,6 +25,7 @@
           color="secondary"
           icon="account_balance_wallet"
           @click="submit"
+          class="no-shadow q-ma-sm"
         />
       </q-card-actions>
     </q-card>

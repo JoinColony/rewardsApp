@@ -7,7 +7,7 @@
         <q-btn
           @click="setColony"
           label="Confirm"
-          class="q-mt-md"
+          class="no-shadow q-ma-sm"
           :loading="loading"
           color="secondary"
           no-caps

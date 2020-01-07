@@ -43,6 +43,7 @@
             placeholder="0"
             type="number"
             color="secondary"
+            autofocus
           />
           <q-select
             v-model="token"
@@ -61,6 +62,7 @@
           label="Confirm"
           @click="submit"
           :loading="loading"
+          class="no-shadow q-ma-sm"
         />
       </q-card-actions>
     </q-card>

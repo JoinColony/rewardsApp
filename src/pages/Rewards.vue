@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex justify-center">
-    <div class="row" style="width: 1024px;">
+    <div class="row self-start" style="width: 1024px;">
       <PotBalances class="q-px-md col-12 col-sm-8" />
       <PotDetails class="q-px-md col-12 col-sm-4 column" />
     </div>
