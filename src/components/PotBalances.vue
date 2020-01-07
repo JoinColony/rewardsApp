@@ -11,7 +11,7 @@
           class="q-pa-md"
           v-for="token in rewardPotTokens"
           :key="token.token"
-          @click="$store.commit('app/toggleRewardDistributionDialog', token)"
+          @click="openTokenDialog(token)"
           clickable
           v-ripple
         >
@@ -41,7 +41,7 @@
               icon-right="fab fa-ethereum"
             />
           </q-item-section>
-          <RewardDistributionDialog :token="token" />
+          <RewardDistributionDialog />
         </q-item>
       </q-list>
     </div>
@@ -63,6 +63,12 @@ export default {
   computed: {
     rewardPotTokens() {
       return this.$store.getters["app/getRewardPotTokens"];
+    }
+  },
+  methods: {
+    openTokenDialog(token) {
+      this.$store.commit("app/setSelectedToken", { token });
+      this.$store.commit("app/toggleRewardDistributionDialog");
     }
   },
   components: {

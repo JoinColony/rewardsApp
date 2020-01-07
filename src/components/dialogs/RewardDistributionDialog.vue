@@ -1,5 +1,5 @@
 <template>
-  <q-dialog v-model="isOpen" :persistent="loading">
+  <q-dialog v-if="token != '0x0'" v-model="isOpen" :persistent="loading">
     <q-card>
       <q-card-section class="row">
         <span class="col text-h6 ellipsis">{{ token.token }}</span>
@@ -33,14 +33,6 @@
 
 <script>
 export default {
-  props: {
-    token: {
-      type: Object,
-      default() {
-        return { token: "0x0", balance: 0 };
-      }
-    }
-  },
   data() {
     return {
       loading: false
@@ -54,13 +46,16 @@ export default {
       set(_isOpen) {
         this.$store.commit("app/toggleRewardDistributionDialog", _isOpen);
       }
+    },
+    token() {
+      return this.$store.state.app.selectedToken;
     }
   },
   methods: {
     async submit() {
       try {
         await this.$store.dispatch("app/startNextRewardPayout", {
-          token: this.$props.token.token
+          token: this.token
         });
 
         this.$q.notify({

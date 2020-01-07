@@ -48,6 +48,10 @@ export function toggleRewardDistributionDialog(state, isOpen) {
   }
 }
 
+export function setSelectedToken(state, { token }) {
+  state.selectedToken = token;
+}
+
 export function addRewardPotToken(state, { token, balance }) {
   state.rewardPotTokens.push({
     token,
