@@ -12,8 +12,9 @@
           :options="fromOptions"
           map-options
           color="secondary"
+          @input="getBudget"
         />
-        <!-- <div class="text-caption" align="right">Budget: {{ budget }}</div> -->
+        <div class="text-caption" align="right">Budget: {{ budget }}</div>
 
         <div class="text-center full-width">
           <q-icon
@@ -52,6 +53,7 @@
             label="Token"
             class="col-4 ellipsis text-caption"
             color="secondary"
+            @input="getBudget"
           />
         </div>
       </q-card-section>
@@ -78,7 +80,8 @@ export default {
       toOptions: [{ label: "Reward Pot", value: 0 }],
       amount: "",
       token: "Choose a Token",
-      loading: false
+      loading: false,
+      budget: "0"
     };
   },
   computed: {
@@ -135,6 +138,16 @@ export default {
       }
 
       this.loading = false;
+    },
+    async getBudget() {
+      const colonyClient = this.$store.getters["app/getColonyClient"];
+
+      const { balance } = await colonyClient.getFundingPotBalance.call({
+        potId: this.fromPot.value,
+        token: this.token
+      });
+
+      this.budget = this.$web3.utils.fromWei(balance.toString());
     }
   }
 };
