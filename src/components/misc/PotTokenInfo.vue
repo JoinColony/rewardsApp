@@ -8,7 +8,7 @@
         No current reward distribution
       </q-item-label>
       <q-item-label v-else caption class="q-pt-sm text-primary">
-        Active current reward distribution
+        Active Rewards Distribution
       </q-item-label>
     </q-item-section>
 

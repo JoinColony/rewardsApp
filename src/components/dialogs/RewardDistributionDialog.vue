@@ -54,7 +54,16 @@
         <q-btn
           v-if="rewardInfo"
           no-caps
-          label="Claim Distribution"
+          label="Waive"
+          color="negative"
+          icon="account_balance_wallet"
+          @click="waive"
+          class="no-shadow q-ma-sm"
+        />
+        <q-btn
+          v-if="rewardInfo"
+          no-caps
+          label="Claim"
           color="secondary"
           icon="account_balance_wallet"
           @click="claim"
@@ -109,7 +118,8 @@ export default {
         this.$q.notify({ color: "negative", message });
       }
     },
-    async claim() {}
+    async claim() {},
+    async waive() {}
   }
 };
 </script>
