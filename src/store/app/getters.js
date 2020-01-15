@@ -33,3 +33,11 @@ export function getRewardPercentage(state) {
 export function getColonyAddress(state) {
   return state.colonyAddress;
 }
+
+export function rewardPayoutInfo(state) {
+  return token => {
+    return state.rewardPayoutsInfo.find(
+      payoutInfo => payoutInfo.tokenAddress === token
+    );
+  };
+}

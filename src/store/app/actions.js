@@ -2,6 +2,7 @@ import { open } from "@colony/purser-metamask";
 import { bigNumber } from "@colony/purser-core/utils";
 import { getNetworkClient } from "@colony/colony-js-client";
 import axios from "axios";
+import { web3 } from "../../boot/web3";
 
 export async function openWallet({ commit }) {
   const wallet = await open();
@@ -93,8 +94,15 @@ export async function setRewardPotTokens({ commit, dispatch, getters }) {
       })
     ).balance.toString();
 
+    const payout = (
+      await colonyClient.getFundingPotPayout.call({
+        potId: 0, // Rewards Pot
+        token
+      })
+    ).payout.toString();
+
     if (balance > 0) {
-      commit("addRewardPotToken", { token, balance });
+      commit("addRewardPotToken", { token, balance, payout });
     }
   });
 
@@ -163,7 +171,7 @@ export async function moveFunds(
   await colonyClient.moveFundsBetweenPots.send({
     fromPot,
     toPot,
-    amount: bigNumber(amount).toWei(),
+    amount: bigNumber(web3.utils.toWei(amount)),
     token
   });
 }

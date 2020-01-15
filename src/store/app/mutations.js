@@ -52,10 +52,11 @@ export function setSelectedToken(state, { token }) {
   state.selectedToken = token;
 }
 
-export function addRewardPotToken(state, { token, balance }) {
+export function addRewardPotToken(state, { token, balance, payout }) {
   state.rewardPotTokens.push({
     token,
-    balance
+    balance,
+    payout
   });
 }
 
