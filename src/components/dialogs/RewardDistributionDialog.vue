@@ -1,30 +1,57 @@
 <template>
   <q-dialog v-if="token != '0x0'" v-model="isOpen" :persistent="loading">
     <q-card>
-      <q-card-section class="row">
-        <span class="col text-h6 ellipsis">{{ token.token }}</span>
+      <q-card-section>
+        <div
+          class="text-h6 ellipsis q-pr-md"
+          style="width: 100px; display: inline-block; vertical-align: bottom;"
+        >
+          {{ token.token }}
+        </div>
         <span class="text-h6">Reward Distribution</span>
       </q-card-section>
       <q-card-section align="right">
-        There is {{ $web3.utils.fromWei(token.balance) }} ETH in the reward pot.
+        There is <strong>{{ $web3.utils.fromWei(token.balance) }}</strong>
+        <div
+          class="ellipsis q-mx-xs"
+          style="display: inline-block; width: 75px; vertical-align: middle"
+        >
+          {{ token.token }}
+        </div>
+        in the reward pot.
       </q-card-section>
       <q-card-section align="right">
         Your share of the reward pot is:
       </q-card-section>
       <q-card-section align="right">
-        <span class="q-mx-sm">{{ "TODO: Add Result" }} ETH</span>
+        <strong style="vertical-align: middle">{{ token.payout }}</strong>
+        <div
+          class="q-mx-sm ellipsis"
+          style="display: inline-block; width: 75px; vertical-align: middle"
+        >
+          {{ token.token }}
+        </div>
         <q-icon name="fab fa-ethereum" color="black" align="right" size="md" />
       </q-card-section>
 
       <q-card-actions align="right">
         <!-- <q-btn flat label="Cancel" color="primary" v-close-popup /> -->
         <q-btn
-          v-if="hasRootRole"
+          v-if="hasRootRole && !rewardInfo"
           no-caps
           label="New Distribution"
           color="secondary"
           icon="account_balance_wallet"
           @click="submit"
+          class="no-shadow q-ma-sm"
+        />
+        <q-btn
+          v-if="rewardInfo"
+          no-caps
+          label="Claim Distribution"
+          color="secondary"
+          icon="account_balance_wallet"
+          @click="claim"
           class="no-shadow q-ma-sm"
         />
       </q-card-actions>
@@ -53,6 +80,9 @@ export default {
     },
     hasRootRole() {
       return this.$store.getters["app/getUser"].hasRootRole;
+    },
+    rewardInfo() {
+      return this.$store.getters["app/rewardPayoutInfo"](this.token.token);
     }
   },
   methods: {
@@ -72,7 +102,8 @@ export default {
         const { message } = error;
         this.$q.notify({ color: "negative", message });
       }
-    }
+    },
+    async claim() {}
   }
 };
 </script>
