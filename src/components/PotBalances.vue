@@ -1,6 +1,6 @@
 <template>
   <q-list>
-    <h6>Reward Pot Balances</h6>
+    <h6 class="q-mb-lg">Reward Pot Balances</h6>
 
     <q-list
       separator
@@ -16,44 +16,19 @@
         clickable
         v-ripple
       >
-        <q-item-section>
-          <q-item-label class="ellipsis" style="width: 150px">
-            Token: {{ token.token }}
-          </q-item-label>
-          <q-item-label caption class="q-pt-sm">
-            No current reward distribution
-            <!-- <q-btn
-                no-caps
-                flat
-                size="small"
-                @click="
-                  $store.commit('app/toggleRewardDistributionDialog', token)
-                "
-              >
-                
-              </q-btn> -->
-          </q-item-label>
-        </q-item-section>
-
-        <q-item-section side center>
-          <q-chip
-            color="secondary"
-            :label="$web3.utils.fromWei(token.balance)"
-            size="md"
-            outline
-            icon-right="fab fa-ethereum"
-          />
-        </q-item-section>
-        <RewardDistributionDialog />
+        <PotTokenInfo :token="token" />
       </q-item>
     </q-list>
     <div v-else>
       No tokens in the Reward Pot
     </div>
+
+    <RewardDistributionDialog />
   </q-list>
 </template>
 
 <script>
+import PotTokenInfo from "components/misc/PotTokenInfo.vue";
 import RewardDistributionDialog from "components/dialogs/RewardDistributionDialog";
 
 export default {
@@ -74,6 +49,7 @@ export default {
     }
   },
   components: {
+    PotTokenInfo,
     RewardDistributionDialog
   }
 };

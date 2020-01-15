@@ -6,7 +6,7 @@ module.exports = function(/* ctx */) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     // https://quasar.dev/quasar-cli/cli-documentation/boot-files
-    boot: ["navGuard", "web3"],
+    boot: ["navGuard", "vFragment", "web3"],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
     css: ["app.scss"],
@@ -42,7 +42,9 @@ module.exports = function(/* ctx */) {
       directives: [],
 
       // Quasar plugins
-      plugins: ["Notify"]
+      plugins: ["Notify"],
+
+      cssAddon: true
     },
 
     // https://quasar.dev/quasar-cli/cli-documentation/supporting-ie
