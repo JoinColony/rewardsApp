@@ -12,7 +12,6 @@
       no-caps
       class="q-my-sm no-shadow"
       label="Move funds"
-      style="background-color: white;"
     />
     <MoveFundsDialog v-if="hasFundingRole" />
 
@@ -22,7 +21,6 @@
       no-caps
       class="q-my-sm no-shadow"
       label="Set rewards percentage"
-      style="background-color: white;"
     />
     <SetRewardsDialog v-if="hasRootRole" />
   </div>
@@ -50,3 +48,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.q-btn {
+  background-color: white;
+}
+</style>
