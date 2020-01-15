@@ -31,7 +31,13 @@
         >
           {{ token.token }}
         </div>
-        <q-icon name="fab fa-ethereum" color="black" align="right" size="md" />
+        <q-icon
+          v-if="token.token === '0x0000000000000000000000000000000000000000'"
+          name="fab fa-ethereum"
+          color="black"
+          align="right"
+          size="md"
+        />
       </q-card-section>
 
       <q-card-actions align="right">

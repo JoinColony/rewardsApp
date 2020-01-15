@@ -14,11 +14,19 @@
 
     <q-item-section side center>
       <q-chip
+        v-if="token.token === '0x0000000000000000000000000000000000000000'"
+        color="secondary"
+        :label="$web3.utils.fromWei(token.balance) + ' ETH'"
+        size="md"
+        outline
+        icon-right="fab fa-ethereum"
+      />
+      <q-chip
+        v-else
         color="secondary"
         :label="$web3.utils.fromWei(token.balance)"
         size="md"
         outline
-        icon-right="fab fa-ethereum"
       />
     </q-item-section>
   </fragment>
