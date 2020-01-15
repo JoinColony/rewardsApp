@@ -19,7 +19,7 @@
       <q-card-actions align="right">
         <!-- <q-btn flat label="Cancel" color="primary" v-close-popup /> -->
         <q-btn
-          v-if="$store.getters['app/getUser'].hasRootRole"
+          v-if="hasRootRole"
           no-caps
           label="New Distribution"
           color="secondary"
@@ -50,13 +50,16 @@ export default {
     },
     token() {
       return this.$store.state.app.selectedToken;
+    },
+    hasRootRole() {
+      return this.$store.getters["app/getUser"].hasRootRole;
     }
   },
   methods: {
     async submit() {
       try {
         await this.$store.dispatch("app/startNextRewardPayout", {
-          token: this.token
+          token: this.token.token
         });
 
         this.$q.notify({

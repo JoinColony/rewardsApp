@@ -39,11 +39,12 @@
             label="Amount"
             v-model="amount"
             @keyup.enter="submit"
-            class="col-8"
-            placeholder="0"
+            class="col-8 q-pr-md"
+            placeholder="0.00"
             type="number"
             color="secondary"
             autofocus
+            :step="0.05"
           />
           <q-select
             v-model="token"
