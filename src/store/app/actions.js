@@ -1,6 +1,6 @@
 import { open } from "@colony/purser-metamask";
 import { bigNumber } from "@colony/purser-core/utils";
-import { getNetworkClient } from "@colony/colony-js-client";
+import { getNetworkClient } from "@tommycox/colony-js-client";
 import axios from "axios";
 import { web3 } from "../../boot/web3";
 import erc20ABI from "human-standard-token-abi";

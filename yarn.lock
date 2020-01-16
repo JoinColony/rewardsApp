@@ -1111,6 +1111,46 @@
   dependencies:
     defer-to-connect "^1.0.1"
 
+"@tommycox/colony-js-client@^1.14.1":
+  version "1.14.1"
+  resolved "https://registry.yarnpkg.com/@tommycox/colony-js-client/-/colony-js-client-1.14.1.tgz#85c93d01875be11f8abaad663e39d857c53cfcc3"
+  integrity sha512-hwlsubwRzh331co8Fnq1z8/gTF9y9DT1glZC3sBKCay/soOG1ZvwCZLH8SlMKzJK0CsQGiFPbMKKQsYl8PcsyQ==
+  dependencies:
+    "@colony/colony-js-adapter" "^1.14.0-beta.2"
+    "@colony/colony-js-adapter-ethers" "^1.14.0-beta.2"
+    "@colony/colony-js-contract-loader" "^1.12.0"
+    "@colony/colony-js-contract-loader-http" "^1.14.0-beta.0"
+    "@colony/colony-js-contract-loader-network" "^1.14.0-beta.0"
+    "@colony/colony-js-utils" "^1.12.0"
+    "@colony/purser-core" "^2.1.0"
+    "@tommycox/colony-js-contract-client" "^1.14.0-beta.2"
+    assert "^2.0.0"
+    babel-runtime "^6.26.0"
+    bn.js "^4.11.8"
+    ethereumjs-tx "^1.3.7"
+    ethers "3.0.27"
+    isomorphic-fetch "^2.2.1"
+    promise-retry "^1.1.1"
+    web3-utils "^1.0.0-beta.55"
+
+"@tommycox/colony-js-contract-client@^1.14.0-beta.2":
+  version "1.14.0-beta.2"
+  resolved "https://registry.yarnpkg.com/@tommycox/colony-js-contract-client/-/colony-js-contract-client-1.14.0-beta.2.tgz#b7f22384394a0855da27b408086d939d8e079c05"
+  integrity sha512-+LuuWWtjcV93RO7LUC6Nkeof3AjHqSWXzCmgWGyQnCTI7DqREbKrhxsIR7pM7CFapbHlsRXqSk7Dn8+ZQSZZsw==
+  dependencies:
+    "@colony/colony-js-adapter" "^1.14.0-beta.2"
+    "@colony/colony-js-contract-loader" "^1.12.0"
+    "@colony/colony-js-utils" "^1.12.0"
+    assert "^2.0.0"
+    babel-runtime "^6.26.0"
+    bn.js "^4.11.8"
+    bs58 "^4.0.1"
+    ethers "3.0.27"
+    lodash.flatmap "^4.5.0"
+    lodash.isequal "^4.5.0"
+    lodash.isplainobject "^4.0.6"
+    web3-utils "^1.0.0-beta.55"
+
 "@types/bignumber.js@^5.0.0":
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/@types/bignumber.js/-/bignumber.js-5.0.0.tgz#d9f1a378509f3010a3255e9cc822ad0eeb4ab969"
