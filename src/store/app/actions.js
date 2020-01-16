@@ -3,6 +3,7 @@ import { bigNumber } from "@colony/purser-core/utils";
 import { getNetworkClient } from "@colony/colony-js-client";
 import axios from "axios";
 import { web3 } from "../../boot/web3";
+import erc20ABI from "human-standard-token-abi";
 
 export async function openWallet({ commit }) {
   const wallet = await open();
@@ -102,7 +103,17 @@ export async function setRewardPotTokens({ commit, dispatch, getters }) {
     ).payout.toString();
 
     if (balance > 0) {
-      commit("addRewardPotToken", { token, balance, payout });
+      const tokenInstance = await new web3.eth.Contract(erc20ABI, token);
+      let name = "Ether";
+      let symbol = "ETH";
+
+      if (
+        tokenInstance._address !== "0x0000000000000000000000000000000000000000"
+      ) {
+        name = await tokenInstance.methods.name().call();
+        symbol = await tokenInstance.methods.symbol().call();
+      }
+      commit("addRewardPotToken", { token, balance, payout, name, symbol });
     }
   });
 
@@ -144,7 +155,15 @@ export async function setNonRewardPotTokens({ commit, getters }) {
     ).total.toString();
 
     if (balance > 0) {
-      commit("addNonRewardPotToken", { token, balance });
+      const tokenInstance = await new web3.eth.Contract(erc20ABI, token);
+      let symbol = "ETH";
+
+      if (
+        tokenInstance._address !== "0x0000000000000000000000000000000000000000"
+      ) {
+        symbol = await tokenInstance.methods.symbol().call();
+      }
+      commit("addNonRewardPotToken", { token, balance, symbol });
     }
   });
 }
@@ -172,7 +191,7 @@ export async function moveFunds(
     fromPot,
     toPot,
     amount: bigNumber(web3.utils.toWei(amount)),
-    token
+    token: token.value
   });
 }
 

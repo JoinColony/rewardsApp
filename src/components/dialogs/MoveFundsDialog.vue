@@ -1,6 +1,6 @@
 <template>
   <q-dialog v-model="isOpen" :persistent="loading">
-    <q-card>
+    <q-card style="width: 300px">
       <q-card-section>
         <div class="text-h6">Move Funds</div>
       </q-card-section>
@@ -14,14 +14,16 @@
           color="secondary"
           @input="getBudget"
         />
-        <div class="text-caption" align="right">Budget: {{ budget }}</div>
+        <div class="text-caption" align="right">
+          Budget: {{ budget }} {{ token.label }}
+        </div>
 
         <div class="text-center full-width">
           <q-icon
             name="arrow_downward"
             size="lg"
             color="secondary"
-            class="q-mt-md"
+            class="q-mt-xs"
           />
         </div>
 
@@ -35,25 +37,25 @@
         </q-select>
         <!-- <div class="text-caption" align="right">Budget: {{ budget }}</div> -->
 
-        <div class="row q-pt-md">
+        <div class="row q-mt-xs q-col-gutter-sm">
           <q-input
             label="Amount"
             v-model="amount"
             @keyup.enter="submit"
-            class="col-8 q-pr-md"
+            class="col-6"
             placeholder="0.00"
             type="number"
             color="secondary"
-            autofocus
             :step="0.05"
           />
           <q-select
             v-model="token"
             :options="nonRewardPotTokens"
             label="Token"
-            class="col-4 ellipsis text-caption"
+            class="col-6"
             color="secondary"
             @input="getBudget"
+            autofocus
           />
         </div>
       </q-card-section>
@@ -65,7 +67,7 @@
           label="Confirm"
           @click="submit"
           :loading="loading"
-          class="no-shadow q-ma-sm"
+          class="no-shadow"
         />
       </q-card-actions>
     </q-card>
@@ -77,9 +79,9 @@ export default {
   data() {
     return {
       fromPot: { value: 1 },
-      toOptions: [{ label: "Reward Pot", value: 0 }],
+      toOptions: [{ label: "Rewards Pot", value: 0 }],
       amount: "",
-      token: "Choose a Token",
+      token: "Choose Token",
       loading: false,
       budget: "0"
     };
@@ -100,9 +102,10 @@ export default {
       }));
     },
     nonRewardPotTokens() {
-      return this.$store.getters["app/getNonRewardPotTokens"].map(
-        token => token.token
-      );
+      return this.$store.getters["app/getNonRewardPotTokens"].map(token => ({
+        label: token.symbol,
+        value: token.token
+      }));
     },
     // TODO: Use filter instead of computed prop
     fromPotValue: {
@@ -144,7 +147,7 @@ export default {
 
       const { balance } = await colonyClient.getFundingPotBalance.call({
         potId: this.fromPot.value,
-        token: this.token
+        token: this.token.value
       });
 
       this.budget = this.$web3.utils.fromWei(balance.toString());

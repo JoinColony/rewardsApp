@@ -52,11 +52,16 @@ export function setSelectedToken(state, { token }) {
   state.selectedToken = token;
 }
 
-export function addRewardPotToken(state, { token, balance, payout }) {
+export function addRewardPotToken(
+  state,
+  { token, balance, payout, name, symbol }
+) {
   state.rewardPotTokens.push({
     token,
     balance,
-    payout
+    payout,
+    name,
+    symbol
   });
 }
 
@@ -64,10 +69,11 @@ export function clearRewardPotTokens(state) {
   state.rewardPotTokens = [];
 }
 
-export function addNonRewardPotToken(state, { token, balance }) {
+export function addNonRewardPotToken(state, { token, balance, symbol }) {
   state.nonRewardPotTokens.push({
     token,
-    balance
+    balance,
+    symbol
   });
 }
 

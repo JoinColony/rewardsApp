@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h6 class="q-mb-lg">Reward Pot Balances</h6>
+    <h6 class="q-mb-lg">Rewards Pot Balances</h6>
 
     <q-list separator bordered v-if="rewardPotTokens.length > 0">
       <q-item
@@ -17,7 +17,7 @@
       <RewardDistributionDialog />
     </q-list>
     <div v-else>
-      No tokens in the Reward Pot
+      No tokens in the Rewards Pot
     </div>
   </div>
 </template>

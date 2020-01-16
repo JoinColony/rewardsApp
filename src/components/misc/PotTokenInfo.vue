@@ -1,9 +1,18 @@
 <template>
   <fragment>
     <q-item-section>
-      <q-item-label class="ellipsis" style="width: 150px">
-        Token: {{ token.token }}
-      </q-item-label>
+      <div class="row">
+        <q-item-label class="text-weight-medium q-mr-md">
+          {{ token.name }}
+        </q-item-label>
+        <q-item-label
+          v-if="token.token !== '0x0000000000000000000000000000000000000000'"
+          class="ellipsis"
+          style="width: 64px; margin-top: 0;"
+        >
+          {{ token.token }}
+        </q-item-label>
+      </div>
       <q-item-label v-if="!rewardInfo" caption class="q-pt-sm">
         No current reward distribution
       </q-item-label>
@@ -24,7 +33,7 @@
       <q-chip
         v-else
         color="secondary"
-        :label="$web3.utils.fromWei(token.balance)"
+        :label="`${$web3.utils.fromWei(token.balance)} ${token.symbol}`"
         size="md"
         outline
       />
@@ -48,5 +57,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped></style>

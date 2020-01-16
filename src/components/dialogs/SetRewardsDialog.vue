@@ -25,7 +25,7 @@
           label="Confirm"
           @click="submit"
           :loading="loading"
-          class="no-shadow q-ma-sm"
+          class="no-shadow"
         />
       </q-card-actions>
     </q-card>

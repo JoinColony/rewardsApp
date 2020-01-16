@@ -2,41 +2,27 @@
   <q-dialog v-if="token != '0x0'" v-model="isOpen" :persistent="loading">
     <q-card>
       <q-card-section>
-        <div
-          class="text-h6 ellipsis q-pr-md"
-          style="width: 100px; display: inline-block; vertical-align: bottom;"
-        >
-          {{ token.token }}
-        </div>
-        <span class="text-h6">Reward Distribution</span>
+        <span class="text-subtitle1 text-weight-medium">
+          {{ token.name }} Rewards Distribution
+        </span>
       </q-card-section>
       <q-card-section align="right">
-        There is <strong>{{ $web3.utils.fromWei(token.balance) }}</strong>
-        <div
-          class="ellipsis q-mx-xs"
-          style="display: inline-block; width: 75px; vertical-align: middle"
-        >
-          {{ token.token }}
-        </div>
-        in the reward pot.
+        There is
+        <strong>
+          {{ $web3.utils.fromWei(token.balance) }} {{ token.symbol }}
+        </strong>
+        in the rewards pot.
       </q-card-section>
       <q-card-section align="right">
-        Your share of the reward pot is:
+        Your share of the rewards pot is:
       </q-card-section>
       <q-card-section align="right">
-        <strong style="vertical-align: middle">{{ token.payout }}</strong>
-        <div
-          class="q-mx-sm ellipsis"
-          style="display: inline-block; width: 75px; vertical-align: middle"
-        >
-          {{ token.token }}
-        </div>
+        <strong> {{ token.payout }} {{ token.symbol }} </strong>
         <q-icon
           v-if="token.token === '0x0000000000000000000000000000000000000000'"
           name="fab fa-ethereum"
           color="black"
-          align="right"
-          size="md"
+          size="sm"
         />
       </q-card-section>
 
@@ -45,30 +31,33 @@
         <q-btn
           v-if="hasRootRole && !rewardInfo"
           no-caps
-          label="New Distribution"
           color="secondary"
-          icon="account_balance_wallet"
           @click="submit"
-          class="no-shadow q-ma-sm"
-        />
+          class="no-shadow"
+        >
+          <q-icon left size="xs" name="account_balance_wallet" />
+          New Distribution
+        </q-btn>
         <q-btn
-          v-if="rewardInfo"
           no-caps
-          label="Waive"
+          v-if="rewardInfo"
           color="negative"
-          icon="account_balance_wallet"
           @click="waive"
-          class="no-shadow q-ma-sm"
-        />
+          class="no-shadow"
+        >
+          <q-icon left size="xs" name="account_balance_wallet" />
+          Waive
+        </q-btn>
         <q-btn
-          v-if="rewardInfo"
           no-caps
-          label="Claim"
+          v-if="rewardInfo"
           color="secondary"
-          icon="account_balance_wallet"
           @click="claim"
-          class="no-shadow q-ma-sm"
-        />
+          class="no-shadow"
+        >
+          <q-icon left size="xs" name="account_balance_wallet" />
+          Claim
+        </q-btn>
       </q-card-actions>
     </q-card>
   </q-dialog>

@@ -1,6 +1,6 @@
 <template>
   <div class="items-sm-start">
-    <h6 class="q-mb-lg">Reward Pot Details</h6>
+    <h6 class="q-mb-lg">Rewards Pot Details</h6>
     <div>
       {{ rewardPercentage }}% of all incoming revenue is sent to the rewards
       pot.
@@ -11,7 +11,7 @@
       @click="$store.commit('app/toggleMoveFundsDialog')"
       no-caps
       class="q-my-sm no-shadow"
-      label="Move funds"
+      label="Move funds to rewards pot"
     />
     <MoveFundsDialog v-if="hasFundingRole" />
 
