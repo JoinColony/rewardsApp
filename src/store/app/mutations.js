@@ -97,8 +97,9 @@ export function setColonyAddress(state, { address }) {
   state.colonyAddress = address;
 }
 
-export function addRewardPayoutInfo(state, { payoutInfo }) {
+export function addRewardPayoutInfo(state, { payoutId, payoutInfo }) {
   state.rewardPayoutsInfo.push({
+    payoutId,
     ...payoutInfo
   });
 }

@@ -133,7 +133,7 @@ export async function updateRewardPayoutInfo({ commit, getters }) {
       payoutId
     });
 
-    commit("addRewardPayoutInfo", { payoutInfo });
+    commit("addRewardPayoutInfo", { payoutId, payoutInfo });
   });
 }
 
