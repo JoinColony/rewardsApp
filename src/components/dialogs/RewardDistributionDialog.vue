@@ -92,6 +92,22 @@ export default {
     }
   },
   methods: {
+    bnSqrt(bn, isGreater) {
+      let a = bn.addn(1).divn(2);
+      let b = bn;
+      while (a.lt(b)) {
+        b = a;
+        a = bn
+          .div(a)
+          .add(a)
+          .divn(2);
+      }
+
+      if (isGreater && b.mul(b).lt(bn)) {
+        b = b.addn(1);
+      }
+      return b;
+    },
     async submit() {
       try {
         await this.$store.dispatch("app/startNextRewardPayout", {
@@ -146,31 +162,28 @@ export default {
           .balanceOf(userAddress)
           .call();
 
-        squareRoots[0] = this.$web3.utils.toBN(
-          Math.floor(Math.sqrt(reputationAmount))
+        squareRoots[0] = this.bnSqrt(this.$web3.utils.toBN(reputationAmount));
+        squareRoots[1] = this.bnSqrt(this.$web3.utils.toBN(userTokens));
+        squareRoots[2] = this.bnSqrt(
+          this.$web3.utils.toBN(this.payout.colonyWideReputation),
+          true
         );
-        squareRoots[1] = this.$web3.utils.toBN(
-          Math.floor(Math.sqrt(userTokens))
+        squareRoots[3] = this.bnSqrt(
+          this.$web3.utils.toBN(this.payout.totalTokens),
+          true
         );
-        squareRoots[2] = this.$web3.utils.toBN(
-          Math.ceil(Math.sqrt(this.payout.colonyWideReputation))
+        squareRoots[4] = this.bnSqrt(
+          this.$web3.utils
+            .toBN(reputationAmount)
+            .mul(this.$web3.utils.toBN(userTokens))
         );
-        squareRoots[3] = this.$web3.utils.toBN(
-          Math.ceil(Math.sqrt(this.payout.totalTokens))
+        squareRoots[5] = this.bnSqrt(
+          this.$web3.utils
+            .toBN(this.payout.colonyWideReputation)
+            .mul(this.$web3.utils.toBN(this.payout.totalTokens)),
+          true
         );
-        squareRoots[4] = this.$web3.utils.toBN(
-          Math.floor(Math.sqrt(reputationAmount * userTokens))
-        );
-        squareRoots[5] = this.$web3.utils.toBN(
-          Math.ceil(
-            Math.sqrt(
-              this.payout.colonyWideReputation * this.payout.totalTokens
-            )
-          )
-        );
-        squareRoots[6] = this.$web3.utils.toBN(
-          Math.floor(Math.sqrt(this.payout.amount))
-        );
+        squareRoots[6] = this.bnSqrt(this.$web3.utils.toBN(this.payout.amount));
 
         console.log(squareRoots);//eslint-disable-line
 
