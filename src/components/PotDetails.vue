@@ -7,6 +7,14 @@
     </div>
 
     <q-btn
+      @click="$store.commit('app/toggleLockTokensDialog')"
+      no-caps
+      class="q-my-sm no-shadow"
+      label="Lock/unlock your native tokens"
+    />
+    <LockTokensDialog />
+
+    <q-btn
       v-if="hasFundingRole"
       @click="$store.commit('app/toggleMoveFundsDialog')"
       no-caps
@@ -29,6 +37,7 @@
 <script>
 import MoveFundsDialog from "components/dialogs/MoveFundsDialog";
 import SetRewardsDialog from "components/dialogs/SetRewardsDialog";
+import LockTokensDialog from "components/dialogs/LockTokensDialog";
 
 export default {
   computed: {
@@ -44,7 +53,8 @@ export default {
   },
   components: {
     MoveFundsDialog,
-    SetRewardsDialog
+    SetRewardsDialog,
+    LockTokensDialog
   }
 };
 </script>

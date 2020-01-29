@@ -48,6 +48,14 @@ export function toggleRewardDistributionDialog(state, isOpen) {
   }
 }
 
+export function toggleLockTokensDialog(state, isOpen) {
+  if (typeof isOpen === "boolean") {
+    state.lockTokensDialog = isOpen;
+  } else {
+    state.lockTokensDialog = !state.lockTokensDialog;
+  }
+}
+
 export function setSelectedToken(state, { token }) {
   state.selectedToken = token;
 }
