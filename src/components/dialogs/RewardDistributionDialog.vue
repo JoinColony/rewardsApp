@@ -127,40 +127,28 @@ export default {
     },
     async claim() {
       const colonyClient = this.$store.getters["app/getColonyClient"];
+      const tokenLockingClient = colonyClient.tokenLockingClient;
       const colonyAddress = this.$store.getters["app/getColonyAddress"];
       const { payoutId, reputationState } = this.payout;
       const squareRoots = [0, 0, 0, 0, 0, 0, 0];
 
       const { skillId } = await colonyClient.getDomain.call({ domainId: 1 });
-      const [userAddress] = await this.$web3.eth.getAccounts();
+      const [user] = await this.$web3.eth.getAccounts();
+      const { address: token } = await colonyClient.getTokenAddress.call();
 
       try {
         const { key, value, branchMask, siblings, reputationAmount } = (
           await axios.get(
-            `https://colony.io/reputation/goerli/${reputationState}/${colonyAddress}/${skillId}/${userAddress}`
+            `https://colony.io/reputation/goerli/${reputationState}/${colonyAddress}/${skillId}/${user}`
           )
         ).data;
 
-        let minABI = [
-          // balanceOf
+        const { count: userTokens } = await tokenLockingClient.getUserLock.call(
           {
-            constant: true,
-            inputs: [{ name: "_owner", type: "address" }],
-            name: "balanceOf",
-            outputs: [{ name: "balance", type: "uint256" }],
-            type: "function"
+            token,
+            user
           }
-        ];
-
-        const { address } = await colonyClient.getTokenAddress.call();
-        const tokenInstance = await new this.$web3.eth.Contract(
-          minABI,
-          address
         );
-
-        const userTokens = await tokenInstance.methods
-          .balanceOf(userAddress)
-          .call();
 
         squareRoots[0] = this.bnSqrt(this.$web3.utils.toBN(reputationAmount));
         squareRoots[1] = this.bnSqrt(this.$web3.utils.toBN(userTokens));
