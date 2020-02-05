@@ -150,8 +150,12 @@ export default {
           }
         );
 
+        console.log(userTokens, "userTokens");//eslint-disable-line
+
         squareRoots[0] = this.bnSqrt(this.$web3.utils.toBN(reputationAmount));
-        squareRoots[1] = this.bnSqrt(this.$web3.utils.toBN(userTokens));
+        squareRoots[1] = this.bnSqrt(
+          this.$web3.utils.toBN(this.$web3.utils.toWei(userTokens))
+        );
         squareRoots[2] = this.bnSqrt(
           this.$web3.utils.toBN(this.payout.colonyWideReputation),
           true
@@ -172,8 +176,6 @@ export default {
           true
         );
         squareRoots[6] = this.bnSqrt(this.$web3.utils.toBN(this.payout.amount));
-
-        console.log(squareRoots);//eslint-disable-line
 
         await colonyClient.claimRewardPayout.send({
           payoutId,
