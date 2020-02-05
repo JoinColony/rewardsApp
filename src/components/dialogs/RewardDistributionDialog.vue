@@ -154,7 +154,7 @@ export default {
 
         squareRoots[0] = this.bnSqrt(this.$web3.utils.toBN(reputationAmount));
         squareRoots[1] = this.bnSqrt(
-          this.$web3.utils.toBN(this.$web3.utils.toWei(userTokens))
+          this.$web3.utils.toBN(this.$web3.utils.toWei(userTokens.toString()))
         );
         squareRoots[2] = this.bnSqrt(
           this.$web3.utils.toBN(this.payout.colonyWideReputation),
