@@ -143,19 +143,15 @@ export default {
           )
         ).data;
 
-        const { count: userTokens } = await tokenLockingClient.getUserLock.call(
-          {
-            token,
-            user
-          }
-        );
-
-        console.log(userTokens, "userTokens");//eslint-disable-line
+        const {
+          balance: userTokens
+        } = await tokenLockingClient.getUserLock.call({
+          token,
+          user
+        });
 
         squareRoots[0] = this.bnSqrt(this.$web3.utils.toBN(reputationAmount));
-        squareRoots[1] = this.bnSqrt(
-          this.$web3.utils.toBN(this.$web3.utils.toWei(userTokens.toString()))
-        );
+        squareRoots[1] = this.bnSqrt(this.$web3.utils.toBN(userTokens));
         squareRoots[2] = this.bnSqrt(
           this.$web3.utils.toBN(this.payout.colonyWideReputation),
           true
