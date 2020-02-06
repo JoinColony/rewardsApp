@@ -1088,10 +1088,10 @@
   resolved "https://registry.yarnpkg.com/@quasar/fastclick/-/fastclick-1.1.4.tgz#21ed3e9a4387dcb43022a08af4ef08a5f1abf159"
   integrity sha512-i9wbyV4iT+v4KhtHJynUFhH5LiEPvAEgSnwMqPN4hf/8uRe82nDl5qP5agrp2el1h0HzyBpbvHaW7NB0BPrtvA==
 
-"@tommycox/colony-js-client@1.14.6":
-  version "1.14.6"
-  resolved "https://registry.yarnpkg.com/@tommycox/colony-js-client/-/colony-js-client-1.14.6.tgz#783d0185e4807f0672080c1ffa89c78baa7caa26"
-  integrity sha512-DXVTCa8lyj44i1a+4luUWhFQd3r52oWkpeDiGS+ZjoN4tWQW7dP9AaiEgPOMzO+Q6rszO6tehZ2fHmFrr1thdQ==
+"@tommycox/colony-js-client@1.14.13":
+  version "1.14.13"
+  resolved "https://registry.yarnpkg.com/@tommycox/colony-js-client/-/colony-js-client-1.14.13.tgz#b3eb51e9e1aca923246a7852e6eaba03a6417f41"
+  integrity sha512-ele545jP7BUhd/BmiD7h9AuW4y5nW9nkNZ1XbemC19qoyusWdoQVL0n/VoWEjR+xNebT9C99YLJBPoPW7rjKsg==
   dependencies:
     "@colony/colony-js-adapter" "^1.14.0-beta.2"
     "@colony/colony-js-adapter-ethers" "^1.14.0-beta.2"
@@ -1100,7 +1100,7 @@
     "@colony/colony-js-contract-loader-network" "^1.14.0-beta.0"
     "@colony/colony-js-utils" "^1.12.0"
     "@colony/purser-core" "^2.1.0"
-    "@tommycox/colony-js-contract-client" "^1.14.0-beta.2"
+    "@tommycox/colony-js-contract-client" "^1.14.0-beta.3"
     assert "^2.0.0"
     babel-runtime "^6.26.0"
     bn.js "^4.11.8"
@@ -1110,7 +1110,7 @@
     promise-retry "^1.1.1"
     web3-utils "^1.0.0-beta.55"
 
-"@tommycox/colony-js-contract-client@^1.14.0-beta.2":
+"@tommycox/colony-js-contract-client@^1.14.0-beta.3":
   version "1.14.0-beta.3"
   resolved "https://registry.yarnpkg.com/@tommycox/colony-js-contract-client/-/colony-js-contract-client-1.14.0-beta.3.tgz#88e50b9b001b62dc8a09506ef833eef561be2def"
   integrity sha512-WUkbbgNMEJSWiUohwzsv+Ib+kQtY+K5oLiQ6yKpcu2UVIuHjqz8nXMZKAInq8GX7IV1VC3c78IzxpfGvamV3FA==
