@@ -129,7 +129,13 @@ export default {
       const colonyClient = this.$store.getters["app/getColonyClient"];
       const tokenLockingClient = colonyClient.tokenLockingClient;
       const colonyAddress = this.$store.getters["app/getColonyAddress"];
-      const { payoutId, reputationState } = this.payout;
+      const {
+        payoutId,
+        reputationState,
+        amount,
+        totalTokens,
+        colonyWideReputation
+      } = this.payout;
       const squareRoots = [0, 0, 0, 0, 0, 0, 0];
 
       const { skillId } = await colonyClient.getDomain.call({ domainId: 1 });
@@ -143,35 +149,30 @@ export default {
           )
         ).data;
 
-        const {
-          balance: userTokens
-        } = await tokenLockingClient.getUserLock.call({
+        const { balance } = await tokenLockingClient.getUserLock.call({
           token,
           user
         });
 
         squareRoots[0] = this.bnSqrt(this.$web3.utils.toBN(reputationAmount));
-        squareRoots[1] = this.bnSqrt(this.$web3.utils.toBN(userTokens));
+        squareRoots[1] = this.bnSqrt(this.$web3.utils.toBN(balance));
         squareRoots[2] = this.bnSqrt(
-          this.$web3.utils.toBN(this.payout.colonyWideReputation),
+          this.$web3.utils.toBN(colonyWideReputation),
           true
         );
-        squareRoots[3] = this.bnSqrt(
-          this.$web3.utils.toBN(this.payout.totalTokens),
-          true
-        );
+        squareRoots[3] = this.bnSqrt(this.$web3.utils.toBN(totalTokens), true);
         squareRoots[4] = this.bnSqrt(
           this.$web3.utils
             .toBN(reputationAmount)
-            .mul(this.$web3.utils.toBN(userTokens))
+            .mul(this.$web3.utils.toBN(balance))
         );
         squareRoots[5] = this.bnSqrt(
           this.$web3.utils
-            .toBN(this.payout.colonyWideReputation)
-            .mul(this.$web3.utils.toBN(this.payout.totalTokens)),
+            .toBN(colonyWideReputation)
+            .mul(this.$web3.utils.toBN(totalTokens)),
           true
         );
-        squareRoots[6] = this.bnSqrt(this.$web3.utils.toBN(this.payout.amount));
+        squareRoots[6] = this.bnSqrt(this.$web3.utils.toBN(amount));
 
         await colonyClient.claimRewardPayout.send({
           payoutId,
