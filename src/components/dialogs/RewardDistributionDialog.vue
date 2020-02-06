@@ -194,7 +194,25 @@ export default {
         this.$q.notify({ color: "negative", message });
       }
     },
-    async waive() {}
+    async waive() {
+      const { tokenLockingClient } = this.$store.getters["app/getColonyClient"];
+      const { payoutId: lockId } = this.payout;
+
+      try {
+        await tokenLockingClient.incrementLockCounterTo.send({
+          token: this.token.token,
+          lockId
+        });
+
+        this.$q.notify({
+          color: "positive",
+          message: "Successfully waived the reward payout."
+        });
+      } catch (error) {
+        const { message } = error;
+        this.$q.notify({ color: "negative", message });
+      }
+    }
   }
 };
 </script>
