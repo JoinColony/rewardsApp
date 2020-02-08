@@ -161,17 +161,8 @@ export default {
           true
         );
         squareRoots[3] = this.bnSqrt(this.$web3.utils.toBN(totalTokens), true);
-        squareRoots[4] = this.bnSqrt(
-          this.$web3.utils
-            .toBN(reputationAmount)
-            .mul(this.$web3.utils.toBN(balance))
-        );
-        squareRoots[5] = this.bnSqrt(
-          this.$web3.utils
-            .toBN(colonyWideReputation)
-            .mul(this.$web3.utils.toBN(totalTokens)),
-          true
-        );
+        squareRoots[4] = this.bnSqrt(squareRoots[0].mul(squareRoots[1]));
+        squareRoots[5] = this.bnSqrt(squareRoots[2].mul(squareRoots[3]), true);
         squareRoots[6] = this.bnSqrt(this.$web3.utils.toBN(amount));
 
         await colonyClient.claimRewardPayout.send({
