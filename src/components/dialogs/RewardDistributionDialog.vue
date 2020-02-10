@@ -186,13 +186,18 @@ export default {
       }
     },
     async waive() {
+      const [user] = await this.$web3.eth.getAccounts();
       const { tokenLockingClient } = this.$store.getters["app/getColonyClient"];
-      const { payoutId: lockId } = this.payout;
+
+      const { count: lockId } = await tokenLockingClient.getUserLock.call({
+        token: this.token.token,
+        user
+      });
 
       try {
         await tokenLockingClient.incrementLockCounterTo.send({
           token: this.token.token,
-          lockId
+          lockId: lockId + 1
         });
 
         this.$q.notify({
