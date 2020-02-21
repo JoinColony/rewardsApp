@@ -23,7 +23,7 @@
           <q-card-section>
             <q-input
               label="Amount"
-              v-model="lockAmount"
+              v-model="amountToLock"
               autofocus
               @keyup.enter="submitLock"
               :disable="loading"
@@ -31,6 +31,10 @@
               type="number"
               color="secondary"
             />
+            <div class="text-caption" align="right">
+              Available:
+              {{ availableBalance + " " + tokenInfo.symbol }}
+            </div>
           </q-card-section>
 
           <q-card-actions align="right" class="text-primary">
@@ -49,7 +53,7 @@
           <q-card-section>
             <q-input
               label="Amount"
-              v-model="unlockAmount"
+              v-model="amountToUnlock"
               autofocus
               @keyup.enter="submitUnlock"
               :disable="loading"
@@ -57,6 +61,14 @@
               type="number"
               color="secondary"
             />
+            <div class="text-caption" align="right">
+              Locked:
+              {{
+                $web3.utils.fromWei(amountLocked.toString()) +
+                  " " +
+                  tokenInfo.symbol
+              }}
+            </div>
           </q-card-section>
 
           <q-card-actions align="right" class="text-primary">
@@ -80,14 +92,34 @@ export default {
   data() {
     return {
       loading: false,
-      lockAmount: "",
-      unlockAmount: "",
+      amountToLock: "",
+      amountToUnlock: "",
       tab: "lock",
-      tokenInfo: { name: "", symbol: "" }
+      tokenInfo: { name: "", symbol: "", address: "" },
+      amountLocked: "",
+      availableBalance: ""
     };
   },
   async mounted() {
+    const [user] = await this.$web3.eth.getAccounts();
+    const colonyClient = this.$store.getters["app/getColonyClient"];
+    const tokenLockingClient = colonyClient.tokenLockingClient;
+    const { address: token } = await colonyClient.getTokenAddress.call();
+
     this.tokenInfo = await this.$store.state.app.colonyClient.tokenClient.getTokenInfo.call();
+    this.tokenInfo.address = token;
+
+    const { balance: amountLocked } = await tokenLockingClient.getUserLock.call(
+      {
+        token,
+        user
+      }
+    );
+
+    this.amountLocked = amountLocked;
+    this.availableBalance = this.$web3.utils
+      .fromWei(await this.$web3.eth.getBalance(token))
+      .toString();
   },
   computed: {
     isOpen: {
@@ -105,7 +137,7 @@ export default {
 
       try {
         const amount = this.$web3.utils.toBN(
-          this.$web3.utils.toWei(this.lockAmount)
+          this.$web3.utils.toWei(this.amountToLock)
         );
 
         // Use tokenClient to approve the tokenLockingClient for the specified token amount.
