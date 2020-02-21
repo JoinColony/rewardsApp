@@ -56,6 +56,14 @@ export function toggleLockTokensDialog(state, isOpen) {
   }
 }
 
+export function toggleStartPayoutDialog(state, isOpen) {
+  if (typeof isOpen === "boolean") {
+    state.startPayoutDialog = isOpen;
+  } else {
+    state.startPayoutDialog = !state.startPayoutDialog;
+  }
+}
+
 export function setSelectedToken(state, { token }) {
   state.selectedToken = token;
 }

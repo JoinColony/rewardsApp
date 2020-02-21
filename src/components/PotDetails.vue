@@ -31,6 +31,15 @@
       label="Set rewards percentage"
     />
     <SetRewardsDialog v-if="hasRootRole" />
+
+    <q-btn
+      v-if="hasRootRole"
+      @click="$store.commit('app/toggleStartPayoutDialog')"
+      no-caps
+      class="q-my-sm no-shadow"
+      label="Start a distribution"
+    />
+    <StartPayoutDialog v-if="hasRootRole" />
   </div>
 </template>
 
@@ -38,6 +47,7 @@
 import MoveFundsDialog from "components/dialogs/MoveFundsDialog";
 import SetRewardsDialog from "components/dialogs/SetRewardsDialog";
 import LockTokensDialog from "components/dialogs/LockTokensDialog";
+import StartPayoutDialog from "components/dialogs/StartPayoutDialog";
 
 export default {
   computed: {
@@ -54,7 +64,8 @@ export default {
   components: {
     MoveFundsDialog,
     SetRewardsDialog,
-    LockTokensDialog
+    LockTokensDialog,
+    StartPayoutDialog
   }
 };
 </script>

@@ -11,6 +11,7 @@ export default {
   setRewardsDialog: false,
   rewardDistributionDialog: false,
   lockTokensDialog: false,
+  startPayoutDialog: false,
   selectedToken: { token: "0x0", balance: "0" },
   rewardPotTokens: [],
   nonRewardPotTokens: [],
