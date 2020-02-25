@@ -44,15 +44,13 @@
 <script>
 export default {
   props: {
-    token: {
+    payout: {
       type: Object
     }
   },
   computed: {
-    rewardInfo() {
-      return this.$store.getters["app/rewardPayoutInfo"](
-        this.$props.token.token
-      );
+    token() {
+      return this.$store.getters["app/token"](this.$props.payout.token);
     }
   }
 };

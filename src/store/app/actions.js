@@ -159,7 +159,7 @@ export async function setNonRewardPotTokens({ commit, getters }) {
       let symbol = "ETH";
 
       if (
-        tokenInstance._address !== "0x0000000000000000000000000000000000000000"
+        tokenInstance.address !== "0x0000000000000000000000000000000000000000"
       ) {
         symbol = await tokenInstance.methods.symbol().call();
       }

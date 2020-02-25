@@ -17,5 +17,5 @@ export default {
   nonRewardPotTokens: [],
   domains: [],
   rewardPercentage: 0,
-  rewardPayoutsInfo: []
+  rewardPayouts: []
 };

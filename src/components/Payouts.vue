@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h6 class="q-mb-lg">Rewards Pot Balances</h6>
+    <h6 class="q-mb-lg">Active Rewards Distributions</h6>
 
     <q-list separator bordered v-if="rewardPotTokens.length > 0">
       <q-item
@@ -11,19 +11,19 @@
         clickable
         v-ripple
       >
-        <PotTokenInfo :token="token" />
+        <PayoutInfo :token="token" />
       </q-item>
 
       <RewardDistributionDialog />
     </q-list>
     <div v-else>
-      No tokens in the Rewards Pot
+      No active rewards distributions.
     </div>
   </div>
 </template>
 
 <script>
-import PotTokenInfo from "components/misc/PotTokenInfo.vue";
+import PayoutInfo from "components/misc/PayoutInfo.vue";
 import RewardDistributionDialog from "components/dialogs/RewardDistributionDialog";
 
 export default {
@@ -34,7 +34,7 @@ export default {
   },
   computed: {
     rewardPotTokens() {
-      return this.$store.getters["app/getRewardPotTokens"];
+      return this.$store.getters["app/getActiveRewardPayouts"];
     }
   },
   methods: {
@@ -44,7 +44,7 @@ export default {
     }
   },
   components: {
-    PotTokenInfo,
+    PayoutInfo,
     RewardDistributionDialog
   }
 };

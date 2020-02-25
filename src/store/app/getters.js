@@ -36,8 +36,18 @@ export function getColonyAddress(state) {
 
 export function rewardPayoutInfo(state) {
   return token => {
-    return state.rewardPayoutsInfo.find(
+    return state.rewardPayouts.find(
       payoutInfo => payoutInfo.tokenAddress === token
     );
+  };
+}
+
+export function rewardPayouts(state) {
+  return state.rewardPayouts;
+}
+
+export function payoutToken(state) {
+  return rewardPayout => {
+    return state.rewardPotTokens.find(token => token.token === rewardPayout);
   };
 }
