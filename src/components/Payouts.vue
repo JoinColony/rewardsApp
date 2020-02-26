@@ -34,7 +34,7 @@ export default {
   },
   computed: {
     rewardPotTokens() {
-      return this.$store.getters["app/getActiveRewardPayouts"];
+      return this.$store.getters["app/getRewardPayouts"];
     }
   },
   methods: {

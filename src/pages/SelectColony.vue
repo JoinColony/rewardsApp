@@ -21,8 +21,8 @@
 export default {
   data() {
     return {
-      // address: "planex.colony.joincolony.test", // Planet Express
-      address: "0x85d15CbD2a555FF48C80Dc56A4032e7bfcA11d46",
+      // address: "spaceforce.colony.joincolony.test", // Space Force
+      address: "0xf4fFF9bbbf497423ae2d9E5818A8aFa0F37F1Af1",
       loading: false
     };
   },
@@ -33,7 +33,7 @@ export default {
         await this.$store.dispatch("app/setColonyClient", {
           address: this.address
         });
-        this.$router.push("/rewards");
+        this.$router.push("/payouts");
       } catch (error) {
         const { message } = error;
         this.$q.notify({

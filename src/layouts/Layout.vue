@@ -3,7 +3,7 @@
     <q-header class="transparent shadow-1">
       <q-toolbar>
         <q-toolbar-title>
-          <q-btn to="/select-colony" no-caps flat>
+          <q-btn to="/colony" no-caps flat>
             Colony Rewards Distribution
           </q-btn>
         </q-toolbar-title>

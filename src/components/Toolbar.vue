@@ -1,6 +1,6 @@
 <template>
   <div class="items-sm-start">
-    <h6 class="q-mb-lg">Rewards Pot Details</h6>
+    <h6 class="q-mb-lg">Rewards Pot Tools</h6>
     <div>
       {{ rewardPercentage }}% of all incoming revenue is sent to the rewards
       pot.

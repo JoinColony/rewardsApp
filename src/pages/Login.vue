@@ -10,7 +10,7 @@ export default {
     try {
       await this.$store.dispatch("app/openWallet");
       await this.$store.dispatch("app/setNetworkClient");
-      this.$router.push("/select-colony");
+      this.$router.push("/colony");
     } catch (error) {
       const { message } = error;
       this.$q.notify({

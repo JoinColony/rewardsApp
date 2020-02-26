@@ -77,7 +77,24 @@ export async function setUserRoles({ commit, getters }) {
   commit("setUserRoles", { hasRootRole, hasFundingRole });
 }
 
-export async function setRewardPotTokens({ commit, dispatch, getters }) {
+export async function setRewardPayouts({ commit, getters }) {
+  const colonyClient = getters["getColonyClient"];
+
+  const payoutsStarted = await colonyClient.getEvents({
+    eventNames: ["RewardPayoutCycleStarted"],
+    fromBlock: 1
+  });
+
+  payoutsStarted.forEach(async ({ payoutId }) => {
+    const payoutInfo = await colonyClient.getRewardPayoutInfo.call({
+      payoutId
+    });
+
+    commit("addActiveRewardPayout", { payoutId, payoutInfo });
+  });
+}
+
+export async function setRewardPotTokens({ commit, getters }) {
   const colonyClient = getters["getColonyClient"];
 
   const fundsClaimed = await colonyClient.getEvents({
@@ -95,13 +112,6 @@ export async function setRewardPotTokens({ commit, dispatch, getters }) {
       })
     ).balance.toString();
 
-    const payout = (
-      await colonyClient.getFundingPotPayout.call({
-        potId: 0, // Rewards Pot
-        token
-      })
-    ).payout.toString();
-
     if (balance > 0) {
       const tokenInstance = await new web3.eth.Contract(erc20ABI, token);
       let name = "Ether";
@@ -113,27 +123,8 @@ export async function setRewardPotTokens({ commit, dispatch, getters }) {
         name = await tokenInstance.methods.name().call();
         symbol = await tokenInstance.methods.symbol().call();
       }
-      commit("addRewardPotToken", { token, balance, payout, name, symbol });
+      commit("addRewardPotToken", { token, balance, name, symbol });
     }
-  });
-
-  dispatch("updateRewardPayoutInfo");
-}
-
-export async function updateRewardPayoutInfo({ commit, getters }) {
-  const colonyClient = getters["getColonyClient"];
-
-  const payoutsStarted = await colonyClient.getEvents({
-    eventNames: ["RewardPayoutCycleStarted"],
-    fromBlock: 1
-  });
-
-  payoutsStarted.forEach(async ({ payoutId }) => {
-    const payoutInfo = await colonyClient.getRewardPayoutInfo.call({
-      payoutId
-    });
-
-    commit("addRewardPayoutInfo", { payoutId, payoutInfo });
   });
 }
 

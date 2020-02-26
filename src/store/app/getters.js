@@ -14,6 +14,10 @@ export function getColonyClient(state) {
   return state.colonyClient;
 }
 
+export function getRewardPayouts(state) {
+  return state.rewardPayouts;
+}
+
 export function getRewardPotTokens(state) {
   return state.rewardPotTokens;
 }
@@ -47,7 +51,7 @@ export function rewardPayouts(state) {
 }
 
 export function payoutToken(state) {
-  return rewardPayout => {
-    return state.rewardPotTokens.find(token => token.token === rewardPayout);
+  return payoutToken => {
+    return state.rewardPotTokens.find(token => token.token === payoutToken);
   };
 }
