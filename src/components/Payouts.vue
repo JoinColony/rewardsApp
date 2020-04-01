@@ -6,12 +6,12 @@
       <q-item
         class="q-pa-md"
         v-for="token in rewardPotTokens"
-        :key="token.token"
+        :key="token.payoutId"
         @click="openTokenDialog(token)"
         clickable
         v-ripple
       >
-        <PayoutInfo :token="token" />
+        <PayoutInfo :payout="token" />
       </q-item>
 
       <RewardDistributionDialog />

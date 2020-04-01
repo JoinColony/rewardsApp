@@ -33,6 +33,7 @@ function resetColony(commit) {
   commit("clearRewardPercentage");
   commit("clearUserRoles");
   commit("clearRewardPotTokens");
+  commit("clearRewardPayouts");
   commit("clearNonRewardPotTokens");
   commit("clearDomains");
 }
@@ -42,6 +43,7 @@ function initializeColony(dispatch) {
   dispatch("setUserRoles");
   dispatch("setRewardPotTokens");
   dispatch("setNonRewardPotTokens");
+  dispatch("setRewardPayouts");
   dispatch("setDomains");
 }
 
@@ -91,7 +93,7 @@ export async function setRewardPayouts({ commit, state }) {
       payoutId
     });
 
-    commit("addActiveRewardPayout", { payoutId, payoutInfo });
+    commit("addRewardPayoutInfo", { payoutId, payoutInfo });
   });
 }
 

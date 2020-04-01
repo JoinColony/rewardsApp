@@ -22,7 +22,7 @@ export default {
   data() {
     return {
       // address: "spaceforce.colony.joincolony.test", // Space Force
-      address: "0xf4fFF9bbbf497423ae2d9E5818A8aFa0F37F1Af1",
+      address: "0xc0b16A80F4a142a835E01aC8858AF2E37b318451",
       loading: false
     };
   },
