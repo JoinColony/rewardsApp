@@ -10,17 +10,17 @@ export async function openWallet({ commit }) {
   commit("setWallet", { wallet });
 }
 
-export async function setNetworkClient({ commit, getters }) {
-  const wallet = getters["getWallet"];
+export async function setNetworkClient({ commit, state }) {
   const networkClient = await getNetworkClient("goerli", wallet);
+  const wallet = state.user.wallet;
   commit("setNetworkClient", { networkClient });
 }
 
 export async function setColonyClient(
-  { commit, dispatch, getters },
+  { commit, dispatch, state },
   { address }
 ) {
-  const networkClient = getters["getNetworkClient"];
+  const networkClient = state.networkClient;
   const colonyClient = await networkClient.getColonyClientByAddress(address);
 
   resetColony(commit);
@@ -45,18 +45,19 @@ function initializeColony(dispatch) {
   dispatch("setDomains");
 }
 
-export async function setRewardPercentage({ commit, getters }) {
-  const colonyClient = getters["getColonyClient"];
+export async function setRewardPercentage({ commit, state }) {
+  const colonyClient = state.colonyClient;
 
-  const rewardPercentage =
-    1 / ((await colonyClient.getRewardInverse.call()).rewardInverse / 100);
+  const rewardPercentage = Math.round(
+    1 / ((await colonyClient.getRewardInverse.call()).rewardInverse / 100)
+  );
 
   commit("setRewardPercentage", { rewardPercentage });
 }
 
-export async function setUserRoles({ commit, getters }) {
-  const colonyClient = getters["getColonyClient"];
-  const wallet = getters["getWallet"];
+export async function setUserRoles({ commit, state }) {
+  const colonyClient = state.colonyClient;
+  const wallet = state.user.wallet;
 
   const hasRootRole = (
     await colonyClient.hasColonyRole.call({
@@ -77,8 +78,8 @@ export async function setUserRoles({ commit, getters }) {
   commit("setUserRoles", { hasRootRole, hasFundingRole });
 }
 
-export async function setRewardPayouts({ commit, getters }) {
-  const colonyClient = getters["getColonyClient"];
+export async function setRewardPayouts({ commit, state }) {
+  const colonyClient = state.colonyClient;
 
   const payoutsStarted = await colonyClient.getEvents({
     eventNames: ["RewardPayoutCycleStarted"],
@@ -94,8 +95,8 @@ export async function setRewardPayouts({ commit, getters }) {
   });
 }
 
-export async function setRewardPotTokens({ commit, getters }) {
-  const colonyClient = getters["getColonyClient"];
+export async function setRewardPotTokens({ commit, state }) {
+  const colonyClient = state.colonyClient;
 
   const fundsClaimed = await colonyClient.getEvents({
     eventNames: ["ColonyFundsClaimed"],
@@ -128,8 +129,8 @@ export async function setRewardPotTokens({ commit, getters }) {
   });
 }
 
-export async function setNonRewardPotTokens({ commit, getters }) {
-  const colonyClient = getters["getColonyClient"];
+export async function setNonRewardPotTokens({ commit, state }) {
+  const colonyClient = state.colonyClient;
 
   const fundsClaimed = await colonyClient.getEvents({
     eventNames: ["ColonyFundsClaimed"],
@@ -159,8 +160,8 @@ export async function setNonRewardPotTokens({ commit, getters }) {
   });
 }
 
-export async function setDomains({ commit, getters }) {
-  const colonyClient = getters["getColonyClient"];
+export async function setDomains({ commit, state }) {
+  const colonyClient = state.colonyClient;
 
   const { count } = await colonyClient.getDomainCount.call();
 
@@ -172,11 +173,8 @@ export async function setDomains({ commit, getters }) {
   }
 }
 
-export async function moveFunds(
-  { getters },
-  { fromPot, toPot, amount, token }
-) {
-  const colonyClient = getters["getColonyClient"];
+export async function moveFunds({ state }, { fromPot, toPot, amount, token }) {
+  const colonyClient = state.colonyClient;
 
   await colonyClient.moveFundsBetweenPots.send({
     fromPot,
@@ -187,10 +185,10 @@ export async function moveFunds(
 }
 
 export async function setRewardInverse(
-  { commit, getters },
+  { commit, state },
   { rewardPercentage }
 ) {
-  const colonyClient = getters["getColonyClient"];
+  const colonyClient = state.colonyClient;
 
   await colonyClient.setRewardInverse.send({
     rewardInverse: bigNumber(1 / (rewardPercentage / 100))
@@ -199,10 +197,10 @@ export async function setRewardInverse(
   commit("setRewardPercentage", { rewardPercentage });
 }
 
-export async function startNextRewardPayout({ getters }, { token }) {
-  const networkClient = getters["getNetworkClient"];
-  const colonyClient = getters["getColonyClient"];
-  const colonyAddress = getters["getColonyAddress"];
+export async function startNextRewardPayout({ state }, { token }) {
+  const networkClient = state.networkClient;
+  const colonyClient = state.colonyClient;
+  const colonyAddress = state.colonyAddress;
 
   const { rootHash } = await networkClient.getReputationRootHash.call();
   const { skillId } = await colonyClient.getDomain.call({ domainId: 1 });

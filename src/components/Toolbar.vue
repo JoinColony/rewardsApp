@@ -52,13 +52,13 @@ import StartPayoutDialog from "components/dialogs/StartPayoutDialog";
 export default {
   computed: {
     rewardPercentage() {
-      return this.$store.getters["app/getRewardPercentage"];
+      return this.$store.state.app.rewardPercentage;
     },
     hasRootRole() {
-      return this.$store.getters["app/getUser"].hasRootRole;
+      return this.$store.state.app.user.hasRootRole;
     },
     hasFundingRole() {
-      return this.$store.getters["app/getUser"].hasFundingRole;
+      return this.$store.state.app.user.hasFundingRole;
     }
   },
   components: {

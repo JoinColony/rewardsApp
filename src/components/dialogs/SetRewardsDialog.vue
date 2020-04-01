@@ -41,7 +41,7 @@ export default {
     };
   },
   mounted() {
-    this.rewardPercentage = this.$store.getters["app/getRewardPercentage"];
+    this.rewardPercentage = this.$store.state.app.rewardPercentage;
   },
   computed: {
     isOpen: {
