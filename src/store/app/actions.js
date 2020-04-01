@@ -11,8 +11,9 @@ export async function openWallet({ commit }) {
 }
 
 export async function setNetworkClient({ commit, state }) {
-  const networkClient = await getNetworkClient("goerli", wallet);
   const wallet = state.user.wallet;
+  const networkClient = await getNetworkClient("goerli", wallet);
+
   commit("setNetworkClient", { networkClient });
 }
 
