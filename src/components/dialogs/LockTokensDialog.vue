@@ -145,17 +145,20 @@ export default {
         );
 
         // Use tokenClient to approve the tokenLockingClient for the specified token amount.
-        const address = this.$store.state.app.colonyClient.tokenLockingClient
-          .contract.address;
+        const {
+          address
+        } = this.$store.state.app.colonyClient.tokenLockingClient.contract;
+
         await this.$store.state.app.colonyClient.tokenClient.approve.send({
           address,
           amount
         });
 
-        // Use the tokenLockingClient to deposit the specified amount of tokens.
         const {
           address: token
         } = await this.$store.state.app.colonyClient.getTokenAddress.call();
+
+        // Use the tokenLockingClient to deposit the specified token amount.
         await this.$store.state.app.colonyClient.tokenLockingClient.deposit.send(
           {
             token,
@@ -180,6 +183,22 @@ export default {
       this.loading = true;
 
       try {
+        const amount = this.$web3.utils.toBN(
+          this.$web3.utils.toWei(this.amountToUnlock)
+        );
+
+        const {
+          address: token
+        } = await this.$store.state.app.colonyClient.getTokenAddress.call();
+
+        // Use the tokenLockingClient to withdraw the specified token amount.
+        await this.$store.state.app.colonyClient.tokenLockingClient.withdraw.send(
+          {
+            token,
+            amount
+          }
+        );
+
         this.$q.notify({
           color: "positive",
           message: "Successfully unlocked tokens."
