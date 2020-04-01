@@ -96,13 +96,13 @@ export default {
       }
     },
     fromOptions() {
-      return this.$store.getters["app/getDomains"].map(domain => ({
+      return this.$store.state.app.domains.map(domain => ({
         label: "Funding Pot " + domain.potId,
         value: domain.potId
       }));
     },
     nonRewardPotTokens() {
-      return this.$store.getters["app/getNonRewardPotTokens"].map(token => ({
+      return this.$store.state.app.nonRewardPotTokens.map(token => ({
         label: token.symbol,
         value: token.token
       }));
@@ -143,7 +143,7 @@ export default {
       this.loading = false;
     },
     async getBudget() {
-      const colonyClient = this.$store.getters["app/getColonyClient"];
+      const colonyClient = this.$store.state.app.colonyClient;
 
       const { balance } = await colonyClient.getFundingPotBalance.call({
         potId: this.fromPot.value,

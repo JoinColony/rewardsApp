@@ -85,7 +85,7 @@ export default {
       return this.$store.state.app.selectedToken;
     },
     hasRootRole() {
-      return this.$store.getters["app/getUser"].hasRootRole;
+      return this.$store.state.app.user.hasRootRole;
     },
     payout() {
       return this.$store.getters["app/rewardPayoutInfo"](this.token.token);
@@ -126,9 +126,9 @@ export default {
       }
     },
     async claim() {
-      const colonyClient = this.$store.getters["app/getColonyClient"];
+      const colonyClient = this.$store.state.app.colonyClient;
       const tokenLockingClient = colonyClient.tokenLockingClient;
-      const colonyAddress = this.$store.getters["app/getColonyAddress"];
+      const colonyAddress = this.$store.state.app.colonyAddress;
       const {
         payoutId,
         reputationState,
@@ -187,7 +187,7 @@ export default {
     },
     async waive() {
       const [user] = await this.$web3.eth.getAccounts();
-      const { tokenLockingClient } = this.$store.getters["app/getColonyClient"];
+      const { tokenLockingClient } = this.$store.state.app.colonyClient;
 
       const { count: lockId } = await tokenLockingClient.getUserLock.call({
         token: this.token.token,

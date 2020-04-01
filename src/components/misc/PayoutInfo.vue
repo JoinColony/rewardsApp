@@ -50,7 +50,9 @@ export default {
   },
   computed: {
     token() {
-      return this.$store.getters["app/token"](this.$props.payout.token);
+      return this.$store.getters["app/payoutToken"](
+        this.$props.payout.tokenAddress
+      );
     }
   }
 };

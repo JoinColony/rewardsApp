@@ -53,7 +53,7 @@ export default {
       }
     },
     rewardPotTokens() {
-      return this.$store.getters["app/getRewardPotTokens"].map(token => ({
+      return this.$store.state.app.rewardPotTokens.map(token => ({
         label: token.symbol,
         value: token.token
       }));
@@ -81,7 +81,7 @@ export default {
       this.loading = false;
     },
     async getPotBalance() {
-      const colonyClient = this.$store.getters["app/getColonyClient"];
+      const colonyClient = this.$store.state.app.colonyClient;
 
       const { balance } = await colonyClient.getFundingPotBalance.call({
         potId: 0,

@@ -102,7 +102,7 @@ export default {
   },
   async mounted() {
     const [user] = await this.$web3.eth.getAccounts();
-    const colonyClient = this.$store.getters["app/getColonyClient"];
+    const colonyClient = this.$store.state.app.colonyClient;
     const tokenClient = colonyClient.tokenClient;
     const tokenLockingClient = colonyClient.tokenLockingClient;
     const { address: token } = await colonyClient.getTokenAddress.call();
