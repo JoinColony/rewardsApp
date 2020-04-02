@@ -73,7 +73,7 @@ export default {
           message: "Successfully started the reward payout."
         });
 
-        this.$store.commit("app/toggleRewardDistributionDialog");
+        this.$store.commit("app/togglePayoutDialog");
       } catch ({ message }) {
         this.$q.notify({ color: "negative", message });
       }
