@@ -1,5 +1,5 @@
 <template>
-  <fragment>
+  <fragment v-if="typeof token !== 'undefined'">
     <q-item-section>
       <div class="row">
         <q-item-label class="text-weight-medium q-mr-md">
@@ -13,11 +13,8 @@
           {{ token.token }}
         </q-item-label>
       </div>
-      <q-item-label v-if="!rewardInfo" caption class="q-pt-sm">
-        No current reward distribution
-      </q-item-label>
-      <q-item-label v-else caption class="q-pt-sm text-primary">
-        Active Rewards Distribution
+      <q-item-label caption class="q-pt-sm">
+        Payout {{ payout.payoutId }}
       </q-item-label>
     </q-item-section>
 

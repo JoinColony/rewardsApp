@@ -40,11 +40,11 @@ export function toggleSetRewardsDialog(state, isOpen) {
   }
 }
 
-export function toggleRewardDistributionDialog(state, isOpen) {
+export function togglePayoutDialog(state, isOpen) {
   if (typeof isOpen === "boolean") {
-    state.rewardDistributionDialog = isOpen;
+    state.payoutDialog = isOpen;
   } else {
-    state.rewardDistributionDialog = !state.rewardDistributionDialog;
+    state.payoutDialog = !state.payoutDialog;
   }
 }
 
@@ -64,18 +64,14 @@ export function toggleStartPayoutDialog(state, isOpen) {
   }
 }
 
-export function setSelectedToken(state, { token }) {
-  state.selectedToken = token;
+export function setSelectedPayout(state, { payout }) {
+  state.selectedPayout = payout;
 }
 
-export function addRewardPotToken(
-  state,
-  { token, balance, payout, name, symbol }
-) {
+export function addRewardPotToken(state, { token, balance, name, symbol }) {
   state.rewardPotTokens.push({
     token,
     balance,
-    payout,
     name,
     symbol
   });
