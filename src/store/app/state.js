@@ -12,7 +12,7 @@ export default {
   payoutDialog: false,
   lockTokensDialog: false,
   startPayoutDialog: false,
-  selectedPayout: null,
+  selectedPayout: {},
   rewardPotTokens: [],
   nonRewardPotTokens: [],
   domains: [],
