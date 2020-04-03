@@ -2,7 +2,7 @@
   <q-dialog v-model="isOpen" :persistent="loading">
     <q-card style="width: 300px">
       <q-card-section>
-        <div class="text-h6">Start Rewards Distribution</div>
+        <div class="text-h6">Start Reward Payout</div>
       </q-card-section>
 
       <q-card-section>
