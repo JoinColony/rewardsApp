@@ -22,7 +22,7 @@
       <q-chip
         v-if="token.token === '0x0000000000000000000000000000000000000000'"
         color="secondary"
-        :label="$web3.utils.fromWei(token.balance) + ' ETH'"
+        :label="$web3.utils.fromWei(payout.amount.toString()) + ' ETH'"
         size="md"
         outline
         icon-right="fab fa-ethereum"
@@ -30,7 +30,9 @@
       <q-chip
         v-else
         color="secondary"
-        :label="`${$web3.utils.fromWei(token.balance)} ${token.symbol}`"
+        :label="
+          `${$web3.utils.fromWei(payout.amount.toString())} ${token.symbol}`
+        "
         size="md"
         outline
       />

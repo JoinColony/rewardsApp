@@ -13,7 +13,7 @@
       <q-card-section align="right">
         There is
         <strong>
-          {{ $web3.utils.fromWei(token.balance) }} {{ token.symbol }}
+          {{ $web3.utils.fromWei(payout.amount.toString()) }} {{ token.symbol }}
         </strong>
         in this payout.
       </q-card-section>
