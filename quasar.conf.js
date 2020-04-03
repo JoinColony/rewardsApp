@@ -97,7 +97,7 @@ module.exports = function(/* ctx */) {
       manifest: {
         // name: 'Colony Rewards Distribution',
         // short_name: 'Colony Rewards Distribution',
-        // description: 'A simple web-based interface for triggering, claiming/waiving, and finalizing colony rewards payouts for any token in any colony.',
+        // description: 'A simple web-based interface for triggering, claiming/waiving, and finalizing colony reward payouts for any token in any colony.',
         display: "standalone",
         orientation: "portrait",
         background_color: "#ffffff",

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h6 class="q-mb-lg">Active Rewards Payouts</h6>
+    <h6 class="q-mb-lg">Active Reward Payouts</h6>
 
     <q-list separator bordered v-if="rewardPayouts.length">
       <q-item
@@ -17,7 +17,7 @@
       <PayoutDialog />
     </q-list>
     <div v-else>
-      No active rewards payouts.
+      No active reward payouts.
     </div>
   </div>
 </template>

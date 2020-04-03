@@ -1,6 +1,6 @@
 # Colony Rewards Distribution (colony-rewards-distribution)
 
-A simple web-based interface for triggering, claiming/waiving, and finalizing colony rewards payouts for any token in any colony.
+A simple web-based interface for triggering, claiming/waiving, and finalizing colony reward payouts for any token in any colony.
 
 ## Install the dependencies
 ```bash

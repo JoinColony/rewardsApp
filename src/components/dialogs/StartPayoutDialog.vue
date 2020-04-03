@@ -2,7 +2,7 @@
   <q-dialog v-model="isOpen" :persistent="loading">
     <q-card style="width: 300px">
       <q-card-section>
-        <div class="text-h6">Start Rewards Payout</div>
+        <div class="text-h6">Start Reward Payout</div>
       </q-card-section>
 
       <q-card-section>
@@ -70,7 +70,7 @@ export default {
 
         this.$q.notify({
           color: "positive",
-          message: "Successfully started the rewards payout."
+          message: "Successfully started the reward payout."
         });
 
         this.$store.commit("app/togglePayoutDialog");

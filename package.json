@@ -1,7 +1,7 @@
 {
   "name": "colony-rewards-distribution",
   "version": "0.0.1",
-  "description": "A simple web-based interface for triggering, claiming/waiving, and finalizing colony rewards payouts for any token in any colony.",
+  "description": "A simple web-based interface for triggering, claiming/waiving, and finalizing colony reward payouts for any token in any colony.",
   "productName": "Colony Rewards Distribution",
   "cordovaId": "",
   "capacitorId": "",
