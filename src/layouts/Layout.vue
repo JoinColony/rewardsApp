@@ -4,7 +4,7 @@
       <q-toolbar>
         <q-toolbar-title>
           <q-btn to="/colony" no-caps flat>
-            Colony Rewards Distribution
+            Colony Rewards Payouts
           </q-btn>
         </q-toolbar-title>
       </q-toolbar>

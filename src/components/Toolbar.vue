@@ -37,7 +37,7 @@
       @click="$store.commit('app/toggleStartPayoutDialog')"
       no-caps
       class="q-my-sm no-shadow"
-      label="Start a distribution"
+      label="Start a payout"
     />
     <StartPayoutDialog v-if="hasRootRole" />
   </div>

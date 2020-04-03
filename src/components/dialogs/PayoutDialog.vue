@@ -7,7 +7,7 @@
     <q-card>
       <q-card-section>
         <span class="text-subtitle1 text-weight-medium" v-if="token.name">
-          {{ token.name }} Reward Payout
+          {{ token.name }} Rewards Payout
         </span>
       </q-card-section>
       <q-card-section align="right">
@@ -108,7 +108,7 @@ export default {
 
         this.$q.notify({
           color: "positive",
-          message: "Successfully started the reward payout."
+          message: "Successfully started the rewards payout."
         });
 
         this.$store.commit("app/togglePayoutDialog");
@@ -168,7 +168,7 @@ export default {
 
         this.$q.notify({
           color: "positive",
-          message: "Successfully claimed the reward payout."
+          message: "Successfully claimed the rewards payout."
         });
 
         this.$store.commit("app/togglePayoutDialog");
@@ -194,7 +194,7 @@ export default {
 
         this.$q.notify({
           color: "positive",
-          message: "Successfully waived the reward payout."
+          message: "Successfully waived the rewards payout."
         });
       } catch (error) {
         const { message } = error;
