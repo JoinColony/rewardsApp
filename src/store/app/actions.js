@@ -12,7 +12,7 @@ export async function openWallet({ commit }) {
 
 export async function setNetworkClient({ commit, state }) {
   const wallet = state.user.wallet;
-  const networkClient = await getNetworkClient("goerli", wallet);
+  const networkClient = await getNetworkClient("mainnet", wallet);
 
   commit("setNetworkClient", { networkClient });
 }
@@ -211,7 +211,7 @@ export async function startNextRewardPayout({ state }, { token }) {
 
   const { key, value, branchMask, siblings } = (
     await axios.get(
-      `https://colony.io/reputation/goerli/${rootHash}/${colonyAddress}/${skillId}/${userAddress}`
+      `https://colony.io/reputation/mainnet/${rootHash}/${colonyAddress}/${skillId}/${userAddress}`
     )
   ).data;
 

@@ -2,7 +2,12 @@
   <q-page class="flex flex-center column">
     <div>
       <h3 class="q-mt-none">Select a Colony</h3>
-      <q-input v-model="address" @keyup.enter="setColony" color="secondary" />
+      <q-input
+        v-model="address"
+        @keyup.enter="setColony"
+        color="secondary"
+        placeholder="Colony Address"
+      />
       <q-card-actions align="right">
         <q-btn
           @click="setColony"
@@ -21,8 +26,8 @@
 export default {
   data() {
     return {
-      // address: "spaceforce.colony.joincolony.test", // Space Force
-      address: "0xf4fFF9bbbf497423ae2d9E5818A8aFa0F37F1Af1",
+      // address: "speaketh.colony.joincolony.test", // SpeakETH
+      address: "",
       loading: false
     };
   },

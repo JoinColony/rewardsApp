@@ -137,7 +137,7 @@ export default {
       try {
         const { key, value, branchMask, siblings, reputationAmount } = (
           await axios.get(
-            `https://colony.io/reputation/goerli/${reputationState}/${colonyAddress}/${skillId}/${user}`
+            `https://colony.io/reputation/mainnet/${reputationState}/${colonyAddress}/${skillId}/${user}`
           )
         ).data;
 
