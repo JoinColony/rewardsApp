@@ -137,6 +137,8 @@ export default {
   },
   methods: {
     async submitLock() {
+      const [user] = await this.$web3.eth.getAccounts();
+      const { tokenClient } = this.$store.state.app.colonyClient;
       this.loading = true;
 
       try {
@@ -149,10 +151,17 @@ export default {
           address
         } = this.$store.state.app.colonyClient.tokenLockingClient.contract;
 
-        await this.$store.state.app.colonyClient.tokenClient.approve.send({
-          address,
-          amount
+        const allowance = await tokenClient.getAllowance.call({
+          sourceAddress: user,
+          address
         });
+
+        if (allowance.amount < amount) {
+          await tokenClient.approve.send({
+            address,
+            amount
+          });
+        }
 
         const {
           address: token
