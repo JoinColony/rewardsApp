@@ -113,9 +113,10 @@ export function setColonyAddress(state, { address }) {
   state.colonyAddress = address;
 }
 
-export function addRewardPayoutInfo(state, { payoutId, payoutInfo }) {
+export function addRewardPayoutInfo(state, { active, payoutId, payoutInfo }) {
   state.rewardPayouts.push({
     payoutId,
-    ...payoutInfo
+    ...payoutInfo,
+    active
   });
 }

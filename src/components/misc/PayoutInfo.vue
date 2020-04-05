@@ -1,5 +1,5 @@
 <template>
-  <fragment v-if="typeof token !== 'undefined'">
+  <fragment>
     <q-item-section>
       <div class="row">
         <q-item-label class="text-weight-medium q-mr-md">
