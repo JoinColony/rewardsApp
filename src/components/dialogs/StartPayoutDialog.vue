@@ -16,7 +16,7 @@
           autofocus
         />
         <div class="text-caption" align="right">
-          Pot Balance: {{ potBalance }} {{ token.label }}
+          To be distributed: {{ potBalance }} {{ token.label }}
         </div>
       </q-card-section>
 
@@ -81,9 +81,9 @@ export default {
       this.loading = false;
     },
     async getPotBalance() {
-      const colonyClient = this.$store.state.app.colonyClient;
+      const { getFundingPotBalance } = this.$store.state.app.colonyClient;
 
-      const { balance } = await colonyClient.getFundingPotBalance.call({
+      const { balance } = await getFundingPotBalance.call({
         potId: 0,
         token: this.token.value
       });

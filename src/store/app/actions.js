@@ -134,7 +134,17 @@ export async function setRewardPayouts({ commit, state }) {
 
     const active = !payoutsEnded.includes(payoutId);
 
-    commit("addRewardPayoutInfo", { active, payoutId, payoutInfo });
+    // const fundsClaimed = await colonyClient.getEvents({
+    //   eventNames: ["RewardPayoutClaimed"],
+    //   fromBlock: 1
+    // });
+
+    commit("addRewardPayoutInfo", {
+      active,
+      payoutId,
+      payoutInfo
+      // fundsClaimed
+    });
   });
 }
 
