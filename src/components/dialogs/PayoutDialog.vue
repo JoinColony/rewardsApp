@@ -50,6 +50,10 @@
           <q-icon left size="xs" name="account_balance_wallet" />
           Claim
         </q-btn>
+        <q-btn no-caps @click="finalize" class="no-shadow">
+          <q-icon left size="xs" name="account_balance_wallet" />
+          Finalize
+        </q-btn>
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -200,6 +204,14 @@ export default {
         const { message } = error;
         this.$q.notify({ color: "negative", message });
       }
+    },
+    async finalize() {
+      const { finalizeRewardPayout } = this.$store.state.app.colonyClient;
+      const { payoutId } = this.payout;
+
+      await finalizeRewardPayout.send({
+        payoutId
+      });
     }
   }
 };

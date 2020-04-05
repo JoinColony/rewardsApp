@@ -39,10 +39,10 @@ function resetColony(commit) {
   commit("clearDomains");
 }
 
-function initializeColony(dispatch) {
+async function initializeColony(dispatch) {
   dispatch("setRewardPercentage");
   dispatch("setUserRoles");
-  dispatch("setRewardPotTokens");
+  await dispatch("setRewardPotTokens");
   dispatch("setNonRewardPotTokens");
   dispatch("setRewardPayouts");
   dispatch("setDomains");
@@ -81,23 +81,6 @@ export async function setUserRoles({ commit, state }) {
   commit("setUserRoles", { hasRootRole, hasFundingRole });
 }
 
-export async function setRewardPayouts({ commit, state }) {
-  const colonyClient = state.colonyClient;
-
-  const payoutsStarted = await colonyClient.getEvents({
-    eventNames: ["RewardPayoutCycleStarted"],
-    fromBlock: 1
-  });
-
-  payoutsStarted.forEach(async ({ payoutId }) => {
-    const payoutInfo = await colonyClient.getRewardPayoutInfo.call({
-      payoutId
-    });
-
-    commit("addRewardPayoutInfo", { payoutId, payoutInfo });
-  });
-}
-
 export async function setRewardPotTokens({ commit, state }) {
   const colonyClient = state.colonyClient;
 
@@ -129,6 +112,30 @@ export async function setRewardPotTokens({ commit, state }) {
       }
       commit("addRewardPotToken", { token, balance, name, symbol });
     }
+  });
+}
+
+export async function setRewardPayouts({ commit, state }) {
+  const colonyClient = state.colonyClient;
+
+  const payoutsStarted = await colonyClient.getEvents({
+    eventNames: ["RewardPayoutCycleStarted"],
+    fromBlock: 1
+  });
+
+  const payoutsEnded = await colonyClient.getEvents({
+    eventNames: ["RewardPayoutCycleEnded"],
+    fromBlock: 1
+  });
+
+  payoutsStarted.forEach(async ({ payoutId }) => {
+    const payoutInfo = await colonyClient.getRewardPayoutInfo.call({
+      payoutId
+    });
+
+    const active = !payoutsEnded.includes(payoutId);
+
+    commit("addRewardPayoutInfo", { active, payoutId, payoutInfo });
   });
 }
 
