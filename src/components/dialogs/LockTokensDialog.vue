@@ -141,7 +141,7 @@ export default {
 
       try {
         const amount = this.$web3.utils.toBN(
-          this.$web3.utils.toWei(this.amountToLock)
+          this.$web3.utils.toWei(this.amountToLock).toString()
         );
 
         // Use tokenClient to approve the tokenLockingClient for the specified token amount.
