@@ -44,7 +44,7 @@
             :step="0.05"
           >
             <template v-slot:append>
-              <q-btn @click="amount = budget">Max</q-btn>
+              <q-btn flat @click="amount = budget">Max</q-btn>
             </template>
           </q-input>
           <q-select
