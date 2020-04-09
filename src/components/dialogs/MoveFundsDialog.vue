@@ -95,7 +95,7 @@ export default {
     },
     fromOptions() {
       return this.$store.state.app.domains.map(domain => ({
-        label: "Funding Pot " + domain.potId,
+        label: this.label(domain),
         value: domain.potId
       }));
     },
@@ -149,6 +149,12 @@ export default {
       });
 
       this.budget = this.$web3.utils.fromWei(balance.toString());
+    },
+    label(domain) {
+      if (domain.potId === 1) {
+        return "Root";
+      }
+      return "Domain " + domain.potId;
     }
   }
 };
