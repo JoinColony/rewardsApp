@@ -66,7 +66,15 @@
               color="secondary"
             >
               <template v-slot:append>
-                <q-btn @click="amountToUnlock = amountLocked">Max</q-btn>
+                <q-btn
+                  @click="
+                    amountToUnlock = $web3.utils.fromWei(
+                      amountLocked.toString()
+                    )
+                  "
+                >
+                  Max
+                </q-btn>
               </template>
             </q-input>
             <div class="text-caption" align="right">
