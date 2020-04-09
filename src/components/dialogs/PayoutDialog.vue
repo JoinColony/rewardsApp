@@ -50,7 +50,12 @@
           <q-icon left size="xs" name="account_balance_wallet" />
           Claim
         </q-btn>
-        <q-btn no-caps @click="finalize" class="no-shadow">
+        <q-btn
+          v-if="readyToFinalize"
+          no-caps
+          @click="finalize"
+          class="no-shadow"
+        >
           <q-icon left size="xs" name="account_balance_wallet" />
           Finalize
         </q-btn>
@@ -85,6 +90,13 @@ export default {
     },
     token() {
       return this.$store.getters["app/payoutToken"](this.payout.tokenAddress);
+    },
+    readyToFinalize() {
+      const payoutPeriod = new Date().setDate(
+        this.payout.blockTimestamp.getDate() + 60
+      );
+
+      return Date.now() > payoutPeriod;
     }
   },
   methods: {
