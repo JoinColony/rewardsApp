@@ -30,7 +30,11 @@
               :suffix="tokenInfo.symbol"
               type="number"
               color="secondary"
-            />
+            >
+              <template v-slot:append>
+                <q-btn @click="amountToLock = availableBalance">Max</q-btn>
+              </template>
+            </q-input>
             <div class="text-caption" align="right">
               Available:
               {{ availableBalance + " " + tokenInfo.symbol }}
@@ -60,7 +64,19 @@
               :suffix="tokenInfo.symbol"
               type="number"
               color="secondary"
-            />
+            >
+              <template v-slot:append>
+                <q-btn
+                  @click="
+                    amountToUnlock = $web3.utils.fromWei(
+                      amountLocked.toString()
+                    )
+                  "
+                >
+                  Max
+                </q-btn>
+              </template>
+            </q-input>
             <div class="text-caption" align="right">
               Locked:
               {{
