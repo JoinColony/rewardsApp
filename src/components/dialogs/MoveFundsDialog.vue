@@ -27,14 +27,9 @@
           />
         </div>
 
-        <q-select
-          label="To"
-          :value="0"
-          :options="toOptions"
-          map-options
-          color="secondary"
-        >
-        </q-select>
+        <q-field label="To" stack-label color="secondary"
+          ><template v-slot:control>Rewards Pot</template>
+        </q-field>
         <!-- <div class="text-caption" align="right">Budget: {{ budget }}</div> -->
 
         <div class="row q-mt-xs q-col-gutter-sm">
@@ -42,17 +37,21 @@
             label="Amount"
             v-model="amount"
             @keyup.enter="submit"
-            class="col-6"
+            class="col-8"
             placeholder="0.00"
             type="number"
             color="secondary"
             :step="0.05"
-          />
+          >
+            <template v-slot:append>
+              <q-btn @click="amount = budget">Max</q-btn>
+            </template>
+          </q-input>
           <q-select
             v-model="token"
             :options="nonRewardPotTokens"
             label="Token"
-            class="col-6"
+            class="col-4"
             color="secondary"
             @input="getBudget"
             autofocus
@@ -79,9 +78,8 @@ export default {
   data() {
     return {
       fromPot: { value: 1 },
-      toOptions: [{ label: "Rewards Pot", value: 0 }],
       amount: "",
-      token: "Choose Token",
+      token: "Choose",
       loading: false,
       budget: "0"
     };
