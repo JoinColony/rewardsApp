@@ -84,6 +84,7 @@ export async function setRewardPotTokens({ commit, state }) {
   const colonyClient = state.colonyClient;
 
   const fundsClaimed = await colonyClient.getEvents({
+    address: state.colonyAddress,
     eventNames: ["ColonyFundsClaimed"],
     fromBlock: 1
   });
@@ -118,11 +119,13 @@ export async function setRewardPayouts({ commit, state }) {
   const colonyClient = state.colonyClient;
 
   const payoutsStarted = await colonyClient.getEvents({
+    address: state.colonyAddress,
     eventNames: ["RewardPayoutCycleStarted"],
     fromBlock: 1
   });
 
   const payoutsEnded = await colonyClient.getEvents({
+    address: state.colonyAddress,
     eventNames: ["RewardPayoutCycleEnded"],
     fromBlock: 1
   });
@@ -152,6 +155,7 @@ export async function setNonRewardPotTokens({ commit, state }) {
   const colonyClient = state.colonyClient;
 
   const fundsClaimed = await colonyClient.getEvents({
+    address: state.colonyAddress,
     eventNames: ["ColonyFundsClaimed"],
     fromBlock: 1
   });
