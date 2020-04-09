@@ -77,20 +77,20 @@ export function addRewardPotToken(state, { token, balance, name, symbol }) {
   });
 }
 
-export function clearRewardPotTokens(state) {
-  state.rewardPotTokens = [];
-}
-
-export function clearRewardPayouts(state) {
-  state.rewardPayouts = [];
-}
-
 export function addNonRewardPotToken(state, { token, balance, symbol }) {
   state.nonRewardPotTokens.push({
     token,
     balance,
     symbol
   });
+}
+
+export function clearRewardPotTokens(state) {
+  state.rewardPotTokens = [];
+}
+
+export function clearRewardPayouts(state) {
+  state.rewardPayouts = [];
 }
 
 export function clearNonRewardPotTokens(state) {

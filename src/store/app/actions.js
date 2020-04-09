@@ -31,19 +31,18 @@ export async function setColonyClient(
 }
 
 function resetColony(commit) {
-  commit("clearRewardPercentage");
-  commit("clearUserRoles");
-  commit("clearRewardPotTokens");
-  commit("clearRewardPayouts");
-  commit("clearNonRewardPotTokens");
   commit("clearDomains");
+  commit("clearRewardPayouts");
+  commit("clearRewardPotTokens");
+  commit("clearNonRewardPotTokens");
+  commit("clearUserRoles");
+  commit("clearRewardPercentage");
 }
 
-async function initializeColony(dispatch) {
+function initializeColony(dispatch) {
   dispatch("setRewardPercentage");
   dispatch("setUserRoles");
-  await dispatch("setRewardPotTokens");
-  dispatch("setNonRewardPotTokens");
+  dispatch("setTokens");
   dispatch("setRewardPayouts");
   dispatch("setDomains");
 }
@@ -81,7 +80,7 @@ export async function setUserRoles({ commit, state }) {
   commit("setUserRoles", { hasRootRole, hasFundingRole });
 }
 
-export async function setRewardPotTokens({ commit, state }) {
+export async function setTokens({ commit, state }) {
   const colonyClient = state.colonyClient;
 
   const fundsClaimed = await colonyClient.getEvents({
@@ -93,25 +92,44 @@ export async function setRewardPotTokens({ commit, state }) {
   const uniqueTokens = [...new Set(fundsClaimed.map(item => item.token))];
 
   uniqueTokens.forEach(async token => {
-    const balance = (
+    const rewardsPotBalance = (
       await colonyClient.getFundingPotBalance.call({
         potId: 0, // Rewards Pot
         token
       })
-    ).balance.toString();
+    ).balance;
 
-    if (balance > 0) {
-      const tokenInstance = await new web3.eth.Contract(erc20ABI, token);
-      let name = "Ether";
-      let symbol = "ETH";
+    const nonRewardsPotBalance = (
+      await colonyClient.getNonRewardPotsTotal.call({
+        token
+      })
+    ).total;
 
-      if (
-        tokenInstance._address !== "0x0000000000000000000000000000000000000000"
-      ) {
-        name = await tokenInstance.methods.name().call();
-        symbol = await tokenInstance.methods.symbol().call();
-      }
-      commit("addRewardPotToken", { token, balance, name, symbol });
+    const tokenInstance = await new web3.eth.Contract(erc20ABI, token);
+    let name = "Ether";
+    let symbol = "ETH";
+
+    if (
+      tokenInstance._address !== "0x0000000000000000000000000000000000000000"
+    ) {
+      name = await tokenInstance.methods.name().call();
+      symbol = await tokenInstance.methods.symbol().call();
+    }
+
+    if (rewardsPotBalance > 0) {
+      commit("addRewardPotToken", {
+        token,
+        balance: rewardsPotBalance,
+        name,
+        symbol
+      });
+    }
+    if (nonRewardsPotBalance > 0) {
+      commit("addNonRewardPotToken", {
+        token,
+        balance: nonRewardsPotBalance,
+        symbol
+      });
     }
   });
 }
