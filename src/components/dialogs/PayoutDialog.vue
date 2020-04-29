@@ -46,7 +46,13 @@
           <q-icon left size="xs" name="account_balance_wallet" />
           Waive
         </q-btn>
-        <q-btn no-caps color="secondary" @click="claim" class="no-shadow">
+        <q-btn
+          no-caps
+          color="secondary"
+          @click="claim"
+          :loading="loading"
+          class="no-shadow"
+        >
           <q-icon left size="xs" name="account_balance_wallet" />
           Claim
         </q-btn>
@@ -117,6 +123,7 @@ export default {
       return b;
     },
     async submit() {
+      this.loading = true;
       try {
         await this.$store.dispatch("app/startNextRewardPayout", {
           token: this.token.token
@@ -132,8 +139,10 @@ export default {
         const { message } = error;
         this.$q.notify({ color: "negative", message });
       }
+      this.loading = false;
     },
     async claim() {
+      this.loading = true;
       const colonyClient = this.$store.state.app.colonyClient;
       const tokenLockingClient = colonyClient.tokenLockingClient;
       const colonyAddress = this.$store.state.app.colonyAddress;
@@ -192,8 +201,10 @@ export default {
         const { message } = error;
         this.$q.notify({ color: "negative", message });
       }
+      this.loading = false;
     },
     async waive() {
+      this.loading = true;
       const [user] = await this.$web3.eth.getAccounts();
       const { tokenLockingClient } = this.$store.state.app.colonyClient;
 
@@ -216,14 +227,17 @@ export default {
         const { message } = error;
         this.$q.notify({ color: "negative", message });
       }
+      this.loading = false;
     },
     async finalize() {
+      this.loading = true;
       const { finalizeRewardPayout } = this.$store.state.app.colonyClient;
       const { payoutId } = this.payout;
 
       await finalizeRewardPayout.send({
         payoutId
       });
+      this.loading = false;
     }
   }
 };
