@@ -159,48 +159,48 @@ export default {
       const [user] = await this.$web3.eth.getAccounts();
       const { address: token } = await colonyClient.getTokenAddress.call();
 
-      try {
-        const { key, value, branchMask, siblings, reputationAmount } = (
-          await axios.get(
-            `https://colony.io/reputation/mainnet/${reputationState}/${colonyAddress}/${skillId}/${user}`
-          )
-        ).data;
+      // try {
+      const { key, value, branchMask, siblings, reputationAmount } = (
+        await axios.get(
+          `https://colony.io/reputation/mainnet/${reputationState}/${colonyAddress}/${skillId}/${user}`
+        )
+      ).data;
 
-        const { balance } = await tokenLockingClient.getUserLock.call({
-          token,
-          user
-        });
+      const { balance } = await tokenLockingClient.getUserLock.call({
+        token,
+        user
+      });
 
-        squareRoots[0] = this.bnSqrt(this.$web3.utils.toBN(reputationAmount));
-        squareRoots[1] = this.bnSqrt(this.$web3.utils.toBN(balance));
-        squareRoots[2] = this.bnSqrt(
-          this.$web3.utils.toBN(colonyWideReputation),
-          true
-        );
-        squareRoots[3] = this.bnSqrt(this.$web3.utils.toBN(totalTokens), true);
-        squareRoots[4] = this.bnSqrt(squareRoots[0].mul(squareRoots[1]));
-        squareRoots[5] = this.bnSqrt(squareRoots[2].mul(squareRoots[3]), true);
-        squareRoots[6] = this.bnSqrt(this.$web3.utils.toBN(amount));
+      squareRoots[0] = this.bnSqrt(this.$web3.utils.toBN(reputationAmount));
+      squareRoots[1] = this.bnSqrt(this.$web3.utils.toBN(balance));
+      squareRoots[2] = this.bnSqrt(
+        this.$web3.utils.toBN(colonyWideReputation),
+        true
+      );
+      squareRoots[3] = this.bnSqrt(this.$web3.utils.toBN(totalTokens), true);
+      squareRoots[4] = this.bnSqrt(squareRoots[0].mul(squareRoots[1]));
+      squareRoots[5] = this.bnSqrt(squareRoots[2].mul(squareRoots[3]), true);
+      squareRoots[6] = this.bnSqrt(this.$web3.utils.toBN(amount));
 
-        await colonyClient.claimRewardPayout.send({
-          payoutId,
-          squareRoots,
-          key,
-          value,
-          branchMask,
-          siblings
-        });
+      await colonyClient.claimRewardPayout.send({
+        payoutId,
+        squareRoots,
+        key,
+        value,
+        branchMask,
+        siblings
+      });
 
-        this.$q.notify({
-          color: "positive",
-          message: "Successfully claimed the reward payout."
-        });
+      this.$q.notify({
+        color: "positive",
+        message: "Successfully claimed the reward payout."
+      });
 
-        this.$store.commit("app/togglePayoutDialog");
-      } catch (error) {
-        const { message } = error;
-        this.$q.notify({ color: "negative", message });
-      }
+      this.$store.commit("app/togglePayoutDialog");
+      // } catch (error) {
+      //   const { message } = error;
+      //   this.$q.notify({ color: "negative", message });
+      // }
       this.loading = false;
     },
     async waive() {
