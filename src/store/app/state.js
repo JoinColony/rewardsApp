@@ -17,5 +17,7 @@ export default {
   nonRewardPotTokens: [],
   domains: [],
   rewardPercentage: 0,
-  rewardPayouts: []
+  rewardPayouts: [],
+  totalLockId: 0,
+  userLockId: 0
 };

@@ -8,7 +8,8 @@
         v-for="payout in rewardPayouts"
         :key="payout.payoutId"
         @click="openPayoutDialog(payout)"
-        clickable
+        :clickable="currentLockCount + 1 == payout.payoutId"
+        :disabled="currentLockCount + 1 != payout.payoutId"
         v-ripple
       >
         <PayoutInfo :payout="payout" />
@@ -30,6 +31,9 @@ export default {
   computed: {
     rewardPayouts() {
       return this.$store.state.app.rewardPayouts;
+    },
+    currentLockCount() {
+      return this.$store.state.app.userLockId;
     }
   },
   methods: {

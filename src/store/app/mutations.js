@@ -120,3 +120,8 @@ export function addRewardPayoutInfo(state, { active, payoutId, payoutInfo }) {
     active
   });
 }
+
+export function setCurrentLock(state, { totalLockId, userLockId }) {
+  state.totalLockId = totalLockId;
+  state.userLockId = userLockId;
+}

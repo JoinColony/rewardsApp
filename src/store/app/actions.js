@@ -40,6 +40,7 @@ function resetColony(commit) {
 }
 
 function initializeColony(dispatch) {
+  dispatch("setCurrentLock");
   dispatch("setRewardPercentage");
   dispatch("setUserRoles");
   dispatch("setTokens");
@@ -240,9 +241,7 @@ export async function setRewardInverse(
 }
 
 export async function startNextRewardPayout({ state }, { token }) {
-  const networkClient = state.networkClient;
-  const colonyClient = state.colonyClient;
-  const colonyAddress = state.colonyAddress;
+  const { colonyAddress, colonyClient, networkClient } = state;
 
   const { rootHash } = await networkClient.getReputationRootHash.call();
   const { skillId } = await colonyClient.getDomain.call({ domainId: 1 });
@@ -261,4 +260,24 @@ export async function startNextRewardPayout({ state }, { token }) {
     branchMask,
     siblings
   });
+}
+
+export async function setCurrentLock({ commit, state }) {
+  const { colonyClient } = state;
+  const { tokenLockingClient } = colonyClient;
+  const [user] = await web3.eth.getAccounts();
+  const { address: token } = await colonyClient.getTokenAddress.call();
+
+  const {
+    count: totalLockId
+  } = await tokenLockingClient.getTotalLockCount.call({
+    token
+  });
+
+  const { count: userLockId } = await tokenLockingClient.getUserLock.call({
+    token,
+    user
+  });
+
+  commit("setCurrentLock", { totalLockId, userLockId });
 }
