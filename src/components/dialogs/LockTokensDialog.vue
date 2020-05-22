@@ -173,7 +173,7 @@ export default {
           address
         });
 
-        if (allowance.amount < amount) {
+        if (Number(allowance.amount) < Number(amount)) {
           await tokenClient.approve.send({
             address,
             amount
