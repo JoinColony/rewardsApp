@@ -15,9 +15,9 @@
           @input="getPotBalance"
           autofocus
         />
-        <div class="text-caption" align="right">
+        <!-- <div class="text-caption" align="right">
           To be distributed: {{ potBalance }} {{ token.label }}
-        </div>
+        </div> -->
       </q-card-section>
 
       <q-card-actions align="right">
@@ -81,6 +81,8 @@ export default {
       this.loading = false;
     },
     async getPotBalance() {
+      // TODO: rewardsPotTotal - the sum of amount for each active payout + sum of all claims from each active pauout
+
       const { getFundingPotBalance } = this.$store.state.app.colonyClient;
 
       const { balance } = await getFundingPotBalance.call({
