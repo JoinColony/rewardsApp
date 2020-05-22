@@ -3,10 +3,10 @@
     <div>
       <h3 class="q-mt-none">Select a Colony</h3>
       <q-input
-        v-model="address"
+        v-model="name"
         @keyup.enter="setColony"
         color="secondary"
-        placeholder="Colony Address"
+        placeholder="Colony Name"
       />
       <q-card-actions align="right">
         <q-btn
@@ -27,16 +27,19 @@ export default {
   data() {
     return {
       // address: "speaketh.colony.joincolony.test", // SpeakETH
-      address: "",
+      name: "",
       loading: false
     };
   },
   methods: {
     async setColony() {
       this.loading = true;
+
+      const address = await this.resolveENS();
+
       try {
         await this.$store.dispatch("app/setColonyClient", {
-          address: this.address
+          address
         });
         this.$router.push("/payouts");
       } catch (error) {
@@ -48,6 +51,11 @@ export default {
       } finally {
         this.loading = false;
       }
+    },
+    async resolveENS() {
+      return await this.$web3.eth.ens.getAddress(
+        this.name + ".colony.joincolony.eth"
+      );
     }
   }
 };
