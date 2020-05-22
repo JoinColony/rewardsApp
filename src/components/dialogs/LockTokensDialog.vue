@@ -192,6 +192,9 @@ export default {
           }
         );
 
+        this.availableBalance -= this.$web3.utils.fromWei(amount);
+        this.amountLocked += this.$web3.utils.fromWei(amount);
+
         this.$q.notify({
           color: "positive",
           message: "Successfully locked tokens."
@@ -224,6 +227,9 @@ export default {
             amount
           }
         );
+
+        this.availableBalance += this.$web3.utils.fromWei(amount);
+        this.amountLocked -= this.$web3.utils.fromWei(amount);
 
         this.$q.notify({
           color: "positive",
