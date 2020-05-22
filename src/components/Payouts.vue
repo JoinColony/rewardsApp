@@ -9,6 +9,8 @@
         :key="payout.payoutId"
         @click="openPayoutDialog(payout)"
         :clickable="currentLockCount + 1 == payout.payoutId"
+        :manual-focus="currentLockCount + 1 == payout.payoutId"
+        :focused="currentLockCount + 1 == payout.payoutId"
         :disabled="currentLockCount + 1 != payout.payoutId"
         v-ripple
       >
