@@ -31,17 +31,6 @@
       </q-card-section> -->
 
       <q-card-actions align="right">
-        <!-- <q-btn flat label="Cancel" color="primary" v-close-popup /> -->
-        <!-- <q-btn
-          v-if="hasRootRole"
-          no-caps
-          color="secondary"
-          @click="submit"
-          class="no-shadow"
-        >
-          <q-icon left size="xs" name="account_balance_wallet" />
-          New Distribution
-        </q-btn> -->
         <q-btn
           no-caps
           color="negative"
@@ -130,25 +119,6 @@ export default {
         b = b.addn(1);
       }
       return b;
-    },
-    async submit() {
-      this.loading = true;
-      try {
-        await this.$store.dispatch("app/startNextRewardPayout", {
-          token: this.token.token
-        });
-
-        this.$q.notify({
-          color: "positive",
-          message: "Successfully started the reward payout."
-        });
-
-        this.$store.commit("app/togglePayoutDialog");
-      } catch (error) {
-        const { message } = error;
-        this.$q.notify({ color: "negative", message });
-      }
-      this.loading = false;
     },
     async claim() {
       this.claimLoading = true;
@@ -248,14 +218,13 @@ export default {
       this.waiveLoading = false;
     },
     async finalize() {
-      this.loading = true;
+      // TODO: Add try/catch and loading logic
       const { finalizeRewardPayout } = this.$store.state.app.colonyClient;
       const { payoutId } = this.payout;
 
       await finalizeRewardPayout.send({
         payoutId
       });
-      this.loading = false;
     }
   }
 };
