@@ -46,7 +46,8 @@
           no-caps
           color="negative"
           @click="waive"
-          :loading="loading"
+          :loading="waiveLoading"
+          :disabled="claimLoading"
           class="no-shadow"
         >
           <q-icon left size="xs" name="account_balance_wallet" />
@@ -56,7 +57,8 @@
           no-caps
           color="secondary"
           @click="claim"
-          :loading="loading"
+          :loading="claimLoading"
+          :disabled="waiveLoading"
           class="no-shadow"
         >
           <q-icon left size="xs" name="account_balance_wallet" />
@@ -82,7 +84,8 @@ import axios from "axios";
 export default {
   data() {
     return {
-      loading: false
+      claimLoading: false,
+      waiveLoading: false
     };
   },
   computed: {
@@ -148,7 +151,7 @@ export default {
       this.loading = false;
     },
     async claim() {
-      this.loading = true;
+      this.claimLoading = true;
       const { colonyAddress, colonyClient } = this.$store.state.app;
       const { tokenLockingClient } = colonyClient;
       const {
@@ -206,10 +209,10 @@ export default {
         const { message } = error;
         this.$q.notify({ color: "negative", message });
       }
-      this.loading = false;
+      this.claimLoading = false;
     },
     async waive() {
-      this.loading = true;
+      this.waiveLoading = true;
       const { colonyClient } = this.$store.state.app;
       const { tokenLockingClient } = colonyClient;
       const [user] = await this.$web3.eth.getAccounts();
@@ -234,7 +237,7 @@ export default {
         const { message } = error;
         this.$q.notify({ color: "negative", message });
       }
-      this.loading = false;
+      this.waiveLoading = false;
     },
     async finalize() {
       this.loading = true;
