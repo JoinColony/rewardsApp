@@ -49,9 +49,12 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .q-list {
   background-color: white;
   border-radius: 5px;
+}
+[disabled] {
+  opacity: 0.3 !important;
 }
 </style>
