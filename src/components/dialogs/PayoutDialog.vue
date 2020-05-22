@@ -203,12 +203,15 @@ export default {
           color: "positive",
           message: "Successfully claimed the reward payout."
         });
-
-        this.$store.commit("app/togglePayoutDialog");
       } catch (error) {
-        const { message } = error;
-        this.$q.notify({ color: "negative", message });
+        // const { message } = error;
+        // this.$q.notify({ color: "negative", message });
       }
+
+      this.$store.dispatch("app/setCurrentLock");
+      this.$store.commit("app/clearRewardPayouts");
+      this.$store.dispatch("app/setRewardPayouts");
+      this.$store.commit("app/togglePayoutDialog");
       this.claimLoading = false;
     },
     async waive() {
@@ -233,6 +236,11 @@ export default {
           color: "positive",
           message: "Successfully waived the reward payout."
         });
+
+        this.$store.dispatch("app/setCurrentLock");
+        this.$store.commit("app/clearRewardPayouts");
+        this.$store.dispatch("app/setRewardPayouts");
+        this.$store.commit("app/togglePayoutDialog");
       } catch (error) {
         const { message } = error;
         this.$q.notify({ color: "negative", message });

@@ -240,7 +240,10 @@ export async function setRewardInverse(
   commit("setRewardPercentage", { rewardPercentage });
 }
 
-export async function startNextRewardPayout({ state }, { token }) {
+export async function startNextRewardPayout(
+  { commit, dispatch, state },
+  { token }
+) {
   const { colonyAddress, colonyClient, networkClient } = state;
 
   const { rootHash } = await networkClient.getReputationRootHash.call();
@@ -260,6 +263,10 @@ export async function startNextRewardPayout({ state }, { token }) {
     branchMask,
     siblings
   });
+
+  dispatch("setCurrentLock");
+  commit("clearRewardPayouts");
+  dispatch("setRewardPayouts");
 }
 
 export async function setCurrentLock({ commit, state }) {
