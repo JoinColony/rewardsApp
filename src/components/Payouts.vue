@@ -30,9 +30,7 @@ import PayoutDialog from "components/dialogs/PayoutDialog";
 export default {
   computed: {
     rewardPayouts() {
-      const { rewardPayouts } = this.$store.state.app;
-      rewardPayouts.sort((a, b) => (a.payoutId > b.payoutId ? 1 : -1));
-      return rewardPayouts.sort((a, b) => (a.payoutId > b.payoutId ? 1 : -1));
+      return this.$store.getters["app/sortedRewardsPayouts"];
     },
     currentLockCount() {
       return this.$store.state.app.userLockId;
