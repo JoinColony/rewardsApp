@@ -1,22 +1,20 @@
 {
   "name": "colony-rewards-distribution",
   "version": "0.0.1",
-  "description": "A simple web-based interface for triggering, claiming/waiving, and finalizing colony reward payouts for any token in any colony.",
-  "productName": "Colony Rewards Distribution",
-  "cordovaId": "",
-  "capacitorId": "",
-  "author": "Tommy Cox <tommy.cox@protonmail.com>",
   "private": true,
+  "description": "A simple web-based interface for triggering, claiming/waiving, and finalizing colony reward payouts for any token in any colony.",
+  "author": "Tommy Cox <tommy.cox@protonmail.com>",
   "scripts": {
-    "start-ganache": "colony service start-ganache",
-    "deploy-contracts": "colony service deploy-contracts",
-    "start-trufflepig": "colony service start-trufflepig",
-    "seed-network": "colony service seed-network",
-    "colony-setup": "colony service colony-setup",
     "lint": "eslint --ext .js,.vue src",
-    "test": "echo \"No test specified\" && exit 0",
+    "colony-setup": "colony service colony-setup",
+    "deploy-contracts": "colony service deploy-contracts",
+    "gh-pages-deploy": "node scripts/gh-pages-deploy.js",
     "now-build": "quasar build",
-    "start": "quasar serve --history"
+    "seed-network": "colony service seed-network",
+    "start": "quasar serve --history",
+    "start-ganache": "colony service start-ganache",
+    "start-trufflepig": "colony service start-trufflepig",
+    "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
     "@colony/purser-metamask": "^2.4.1",
@@ -32,16 +30,23 @@
     "@quasar/app": "^1.0.0",
     "@vue/eslint-config-prettier": "^4.0.0",
     "babel-eslint": "^10.0.1",
+    "chalk": "^4.0.0",
     "eslint": "^5.10.0",
     "eslint-loader": "^2.1.1",
-    "eslint-plugin-vue": "^5.0.0"
+    "eslint-plugin-vue": "^5.0.0",
+    "execa": "^4.0.0",
+    "node-emoji": "^1.10.0",
+    "vue-cli-plugin-gh-pages-auto-deploy": "~0.3.0"
   },
+  "browserslist": [
+    "last 1 version, not dead, ie >= 11"
+  ],
+  "capacitorId": "",
+  "cordovaId": "",
   "engines": {
     "node": "10.x",
     "npm": ">= 5.6.0",
     "yarn": ">= 1.6.0"
   },
-  "browserslist": [
-    "last 1 version, not dead, ie >= 11"
-  ]
+  "productName": "Colony Rewards Distribution"
 }
