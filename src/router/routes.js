@@ -1,7 +1,7 @@
 const routes = [
   {
     path: "/",
-    base: "/rewardsApp/",
+    publicPath: "/rewardsApp/",
     component: () => import("layouts/Layout"),
     children: [
       { path: "", component: () => import("pages/Login") },
