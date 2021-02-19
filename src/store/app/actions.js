@@ -15,7 +15,7 @@ export async function setNetworkClient({ commit, state }) {
   const networkClient = await getNetworkClient(
     "mainnet",
     wallet,
-    "f55a8c777ea946749f32454df504ef24"
+    "b70eb0a2bdb942e8acd7c6d3ed22f69e"
   );
 
   commit("setNetworkClient", { networkClient });

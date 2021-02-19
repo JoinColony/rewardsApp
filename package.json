@@ -12,13 +12,13 @@
     "now-build": "quasar build",
     "build": "quasar build",
     "seed-network": "colony service seed-network",
-    "start": "quasar serve --history",
+    "start": "quasar dev --history",
     "start-ganache": "colony service start-ganache",
     "start-trufflepig": "colony service start-trufflepig",
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
-    "@colony/purser-metamask": "^2.4.1",
+    "@colony/purser-metamask": "2.5.0-rc.4",
     "@quasar/extras": "^1.0.0",
     "@tommycox/colony-js-client": "^1.14.17",
     "axios": "^0.21.1",
