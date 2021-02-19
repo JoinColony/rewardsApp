@@ -2,11 +2,17 @@
   <q-page class="flex flex-center column">
     <div>
       <h3 class="q-mt-none">Select a Colony</h3>
-      <q-input
+      <q-select
         v-model="name"
         @keyup.enter="setColony"
         color="secondary"
-        placeholder="Colony Name"
+        label="Colony Name"
+        :options="[
+          {
+            label: 'clr.fund',
+            value: 'clr'
+          }
+        ]"
       />
       <q-card-actions align="right">
         <q-btn
@@ -54,7 +60,7 @@ export default {
     },
     async resolveENS() {
       return await this.$web3.eth.ens.getAddress(
-        this.name + ".colony.joincolony.eth"
+        this.name.value + ".colony.joincolony.eth"
       );
     }
   }
